@@ -1,12 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import { Search, Plus } from "@bigbinary/neeto-icons";
-import { Typography, Input } from "@bigbinary/neetoui/v2";
+import { Search, Plus, Check, Close } from "@bigbinary/neeto-icons";
+import { Typography, Input, Button } from "@bigbinary/neetoui/v2";
 import { MenuBar } from "@bigbinary/neetoui/v2/layouts";
+
+import categoryApi from "apis/categories";
 
 export const Menubar = () => {
   const [isSearchCollapsed, setIsSearchCollapsed] = useState(true);
   const [isAddNewCategory, setIsAddNewCategory] = useState(false);
+  const [newCategory, setNewCategory] = useState("");
+  const [categoryData, setCategoryData] = useState([]);
+  const [searchCategory, setSearchCategory] = useState("");
+  const handleCreate = async () => {
+    await categoryApi.create({ category: { name: newCategory } });
+    setNewCategory("");
+  };
+  const fetchCategories = async () => {
+    const response = await categoryApi.list();
+    setCategoryData(response.data.categories);
+  };
+  useEffect(() => {
+    fetchCategories();
+  }, [categoryData]);
   return (
     <div>
       <MenuBar showMenu={true} title="Articles">
@@ -21,7 +37,7 @@ export const Menubar = () => {
               onClick: () => setIsSearchCollapsed(!isSearchCollapsed),
             },
             {
-              icon: Plus,
+              icon: isAddNewCategory ? Close : Plus,
               onClick: () => setIsAddNewCategory(!isAddNewCategory),
             },
           ]}
@@ -38,12 +54,29 @@ export const Menubar = () => {
         <MenuBar.Search
           collapse={isSearchCollapsed}
           onCollapse={() => setIsSearchCollapsed(true)}
+          value={searchCategory}
+          onChange={e => setSearchCategory(e.target.value)}
         />
-        {isAddNewCategory && <Input />}
-        <MenuBar.Block label="Getting Started" count={10} />
-        <MenuBar.Block label="Apps & integratiom" count={10} />
-        <MenuBar.Block label="Security & Privacy" count={20} />
-        <MenuBar.Block label="Misc" count={27} />
+        {isAddNewCategory && (
+          <Input
+            value={newCategory}
+            onChange={e => setNewCategory(e.target.value)}
+            suffix={<Button style="text" icon={Check} onClick={handleCreate} />}
+          />
+        )}
+        {categoryData
+          .filter(unfilterdCategoryData =>
+            unfilterdCategoryData.name
+              .toLowerCase()
+              .includes(searchCategory.toLocaleLowerCase())
+          )
+          .map(category => (
+            <MenuBar.Block
+              label={category.name}
+              count={category.count}
+              key={category.id}
+            />
+          ))}
       </MenuBar>
     </div>
   );
