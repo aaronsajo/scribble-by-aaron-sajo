@@ -5,7 +5,7 @@ import { SubHeader } from "@bigbinary/neetoui/v2/layouts";
 import { ActionBlockComponent } from "./ActionBlockComponent";
 import { ArticleTable } from "./Table";
 
-export const ListArticle = () => {
+export const ListArticle = ({ setStatusCount, articleFilterConstraint }) => {
   const [searchString, setSearchString] = useState("");
   const [displayColumns, setDisplayColumns] = useState([
     "title",
@@ -31,7 +31,12 @@ export const ListArticle = () => {
       </div>
 
       <div className="h-screen ">
-        <ArticleTable displayColumns={displayColumns} />
+        <ArticleTable
+          displayColumns={displayColumns}
+          setStatusCount={setStatusCount}
+          articleFilterConstraint={articleFilterConstraint}
+          searchString={searchString}
+        />
       </div>
     </div>
   );
