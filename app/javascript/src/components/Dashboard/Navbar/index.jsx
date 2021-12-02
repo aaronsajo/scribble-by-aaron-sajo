@@ -15,6 +15,7 @@ export const Navbar = () => {
               Scribble
             </Typography>
             <NavLink
+              exact
               to="/"
               activeClassName="text-indigo-700 px-2"
               className="text-gray-800 px-2"

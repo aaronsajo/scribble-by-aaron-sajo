@@ -76,7 +76,11 @@ export const ActionBlockComponent = ({ setDisplayColumns }) => {
           />
         </li>
       </Dropdown>
-      <Button label="Add new Article" className="bg-indigo-600 px-4" />
+      <Button
+        label="Add new Article"
+        className="bg-indigo-600 px-4"
+        to="/create/articles/"
+      />
     </div>
   );
 };

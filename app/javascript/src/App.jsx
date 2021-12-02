@@ -7,6 +7,7 @@ import { setAuthHeaders, registerIntercepts } from "apis/axios";
 import { initializeLogger } from "common/logger";
 
 import { Dashboard } from "./components/Dashboard";
+import { CreateArticle } from "./components/Dashboard/Articles/CreateArticle";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -24,6 +25,7 @@ const App = () => {
       <ToastContainer />
       <Switch>
         <Route exact path="/" component={Dashboard} />
+        <Route exact path="/create/articles/" component={CreateArticle} />
       </Switch>
     </Router>
   );

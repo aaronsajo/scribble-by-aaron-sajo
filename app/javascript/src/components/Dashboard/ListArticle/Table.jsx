@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Delete, Edit } from "@bigbinary/neeto-icons";
-import { Table } from "@bigbinary/neetoui/v2";
+import { Table, Button } from "@bigbinary/neetoui/v2";
 
 import articleApi from "apis/articles";
 
@@ -31,10 +31,14 @@ export const ArticleTable = ({
       title: coloumn,
     }));
     dummyColumnData.push({
-      render: () => (
+      render: (_, rowData) => (
         <div className="flex ">
-          <Delete size={20} />
-          <Edit size={20} className="ml-2" />
+          <Button icon={Delete} style="text" />
+          <Button
+            icon={Edit}
+            style="text"
+            to={`/articles/${rowData.id}/edit`}
+          />
         </div>
       ),
     });
