@@ -14,13 +14,19 @@ export const ArticleTable = ({
   const [colData, setColData] = useState([]);
   const [rowData, setRowData] = useState([]);
   const [filteredRowData, setFilteredRowData] = useState([]);
-
+  const handleDelete = id => {
+    const value = confirm("Press OK to Delete Article");
+    if (value) {
+      articleApi.destroy(id);
+      fetchArticleDetails();
+    }
+  };
   const fetchArticleDetails = async () => {
     const response = await articleApi.list();
     setRowData(response.data.articles);
     setStatusCount({
       draft: response.data.draft,
-      published: response.data.draft,
+      published: response.data.published,
     });
   };
 
@@ -33,7 +39,11 @@ export const ArticleTable = ({
     dummyColumnData.push({
       render: (_, rowData) => (
         <div className="flex ">
-          <Button icon={Delete} style="text" />
+          <Button
+            icon={Delete}
+            style="text"
+            onClick={() => handleDelete(rowData.id)}
+          />
           <Button
             icon={Edit}
             style="text"

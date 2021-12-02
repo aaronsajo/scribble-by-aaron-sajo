@@ -8,6 +8,7 @@ import { initializeLogger } from "common/logger";
 
 import { Dashboard } from "./components/Dashboard";
 import { CreateArticle } from "./components/Dashboard/Articles/CreateArticle";
+import { EditArticle } from "./components/Dashboard/Articles/EditArticle";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -25,7 +26,9 @@ const App = () => {
       <ToastContainer />
       <Switch>
         <Route exact path="/" component={Dashboard} />
+
         <Route exact path="/create/articles/" component={CreateArticle} />
+        <Route exact path="/articles/:id/edit" component={EditArticle} />
       </Switch>
     </Router>
   );
