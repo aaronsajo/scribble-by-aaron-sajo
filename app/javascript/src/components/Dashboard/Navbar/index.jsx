@@ -18,14 +18,14 @@ export const Navbar = () => {
               exact
               to="/"
               activeClassName="text-indigo-700 px-2"
-              className="text-gray-800 px-2"
+              className="text-gray-400 px-2"
             >
               Articles
             </NavLink>
             <NavLink
               to="/settings"
               activeClassName="text-indigo-700 px-2"
-              className="text-gray-800 px-2"
+              className="text-gray-400 px-2"
             >
               Settings
             </NavLink>

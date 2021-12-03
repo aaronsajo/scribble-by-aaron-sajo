@@ -40,13 +40,14 @@ export const ArticleForm = ({
   return (
     <div>
       <form className="px-64 mx-32 mt-8" onSubmit={handleSubmit}>
-        <div className="flex ">
+        <div className="flex my-4 ">
           <Input
             label="Article Title"
             className="mr-3"
             value={articleDetails.title}
             name="title"
             onChange={handleChange}
+            required="required"
           />
           <Select
             isClearable
@@ -61,6 +62,7 @@ export const ArticleForm = ({
             }))}
             onChange={handleCategories}
             placeholder="Select a category"
+            required="required"
           />
         </div>
         <Textarea
@@ -70,11 +72,12 @@ export const ArticleForm = ({
           value={articleDetails.body}
           name="body"
           onChange={handleChange}
+          required="required"
         />
         <div className="flex mt-4">
           <Button
             className="bg-indigo-500"
-            label={articleDetails.status}
+            label={"Save " + articleDetails.status}
             type="submit"
           />
           <Dropdown
