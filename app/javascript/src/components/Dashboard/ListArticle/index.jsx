@@ -15,7 +15,7 @@ export const ListArticle = ({ setStatusCount, articleFilterConstraint }) => {
     "status",
   ]);
   return (
-    <div className="overflow-x-auto w-screen mt-6">
+    <div className="overflow-x-auto w-screen mt-6 px-4">
       <div className="flex px-2">
         <SubHeader
           className="justify-end"

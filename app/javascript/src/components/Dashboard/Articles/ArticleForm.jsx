@@ -18,9 +18,14 @@ export const ArticleForm = ({
   handleSubmit,
 }) => {
   const [categoryList, setCategoryList] = useState([]);
+  const [errors, setErrors] = useState({ input: "", select: "", textarea: "" });
   const fetchCategoryList = async () => {
-    const response = await categoryApi.list();
-    setCategoryList(response.data.categories);
+    try {
+      const response = await categoryApi.list();
+      setCategoryList(response.data.categories);
+    } catch (error) {
+      logger.error(error);
+    }
   };
   const handleStatus = () => {
     return articleDetails.status === "Published" ? "Draft" : "Published";
@@ -34,12 +39,35 @@ export const ArticleForm = ({
     setSelectedCategory(e);
     setArticleDetails({ ...articleDetails, category_id: e.value });
   };
+  const handleErrors = e => {
+    e.preventDefault();
+    setErrors({ input: "", select: "", textarea: "" });
+    let flag = false;
+    if (articleDetails.title.trim().length === 0) {
+      setErrors(error => ({ ...error, input: "Title Can't be blank." }));
+      flag = true;
+    }
+
+    if (articleDetails.body.trim().length === 0) {
+      setErrors(error => ({ ...error, textarea: "Body Can't be blank." }));
+      flag = true;
+    }
+
+    if (articleDetails.category_id === null) {
+      setErrors(error => ({ ...error, select: "Select a category" }));
+      flag = true;
+    }
+
+    if (!flag) {
+      handleSubmit();
+    }
+  };
   useEffect(() => {
     fetchCategoryList();
   }, []);
   return (
     <div>
-      <form className="px-64 mx-32 mt-8" onSubmit={handleSubmit}>
+      <form className="px-64 mx-32 mt-8" onSubmit={handleErrors}>
         <div className="flex my-4 ">
           <Input
             label="Article Title"
@@ -47,10 +75,9 @@ export const ArticleForm = ({
             value={articleDetails.title}
             name="title"
             onChange={handleChange}
-            required="required"
+            error={errors.input}
           />
           <Select
-            isClearable
             isSearchable
             label="Select"
             name="ValueList"
@@ -63,6 +90,7 @@ export const ArticleForm = ({
             onChange={handleCategories}
             placeholder="Select a category"
             required="required"
+            error={errors.select}
           />
         </div>
         <Textarea
@@ -73,6 +101,7 @@ export const ArticleForm = ({
           name="body"
           onChange={handleChange}
           required="required"
+          error={errors.textarea}
         />
         <div className="flex mt-4">
           <Button

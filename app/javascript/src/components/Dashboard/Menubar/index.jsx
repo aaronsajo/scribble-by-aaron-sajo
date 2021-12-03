@@ -16,20 +16,32 @@ export const Menubar = ({
   const [newCategory, setNewCategory] = useState("");
   const [categoryData, setCategoryData] = useState([]);
   const [searchCategory, setSearchCategory] = useState("");
+
   const handleCreate = async () => {
-    await categoryApi.create({ category: { name: newCategory } });
-    setNewCategory("");
+    try {
+      await categoryApi.create({ category: { name: newCategory } });
+      setNewCategory("");
+    } catch (error) {
+      logger.error(error);
+    }
   };
+
   const fetchCategories = async () => {
-    const response = await categoryApi.list();
-    setCategoryData(response.data.categories);
+    try {
+      const response = await categoryApi.list();
+      setCategoryData(response.data.categories);
+    } catch (error) {
+      logger.error(error);
+    }
   };
+
   const handleStatus = status => {
     setArticleFilterConstraint({
       ...articleFilterConstraint,
       status,
     });
   };
+
   const handleCategories = category => {
     if (articleFilterConstraint.category === category) {
       setArticleFilterConstraint({
@@ -43,9 +55,11 @@ export const Menubar = ({
       });
     }
   };
+
   useEffect(() => {
     fetchCategories();
   }, [newCategory]);
+
   return (
     <div>
       <MenuBar showMenu={true} title="Articles">

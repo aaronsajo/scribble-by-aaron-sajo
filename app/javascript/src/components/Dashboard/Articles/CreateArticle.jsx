@@ -14,10 +14,13 @@ export const CreateArticle = () => {
     status: "Draft",
   });
   const [selectedCategory, setSelectedCategory] = useState();
-  const handleSubmit = async e => {
-    e.preventDefault();
-    await articleApi.create({ article });
-    window.location.href = "/";
+  const handleSubmit = async () => {
+    try {
+      await articleApi.create({ article });
+      window.location.href = "/";
+    } catch (error) {
+      logger.error(error);
+    }
   };
   return (
     <div>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import { Delete, Edit } from "@bigbinary/neeto-icons";
-import { Table, Button } from "@bigbinary/neetoui/v2";
+import { PageLoader } from "@bigbinary/neetoui/v2";
+import { Table, Button, Typography } from "@bigbinary/neetoui/v2";
 
 import articleApi from "apis/articles";
 
@@ -14,20 +15,32 @@ export const ArticleTable = ({
   const [colData, setColData] = useState([]);
   const [rowData, setRowData] = useState([]);
   const [filteredRowData, setFilteredRowData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const handleDelete = id => {
     const value = confirm("Press OK to Delete Article");
     if (value) {
-      articleApi.destroy(id);
-      fetchArticleDetails();
+      try {
+        articleApi.destroy(id);
+        fetchArticleDetails();
+      } catch (error) {
+        logger.error(error);
+      }
     }
   };
   const fetchArticleDetails = async () => {
-    const response = await articleApi.list();
-    setRowData(response.data.articles);
-    setStatusCount({
-      draft: response.data.draft,
-      published: response.data.published,
-    });
+    try {
+      setLoading(true);
+      const response = await articleApi.list();
+      setRowData(response.data.articles);
+      setStatusCount({
+        draft: response.data.draft,
+        published: response.data.published,
+      });
+    } catch (error) {
+      logger.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -76,8 +89,24 @@ export const ArticleTable = ({
 
     setFilteredRowData(filteredResponse);
   }, [articleFilterConstraint, rowData, searchString]);
+
+  if (loading) {
+    return (
+      <div>
+        <Typography style="h3" className="ml-4 py-3">
+          {" "}
+          Articles
+        </Typography>
+        <PageLoader />
+      </div>
+    );
+  }
+
   return (
     <div className="h-full ">
+      <Typography style="h3" className="ml-4 py-3">
+        {rowData.length} Articles
+      </Typography>
       <Table
         rowSelection={false}
         columnData={colData}
