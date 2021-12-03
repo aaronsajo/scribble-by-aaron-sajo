@@ -5,7 +5,7 @@ import { SubHeader } from "@bigbinary/neetoui/v2/layouts";
 import { ActionBlockComponent } from "./ActionBlockComponent";
 import { ArticleTable } from "./Table";
 
-export const ListArticle = () => {
+export const ListArticle = ({ setStatusCount, articleFilterConstraint }) => {
   const [searchString, setSearchString] = useState("");
   const [displayColumns, setDisplayColumns] = useState([
     "title",
@@ -15,7 +15,7 @@ export const ListArticle = () => {
     "status",
   ]);
   return (
-    <div className="overflow-x-auto w-screen mt-6">
+    <div className="overflow-x-auto w-screen mt-6 px-4">
       <div className="flex px-2">
         <SubHeader
           className="justify-end"
@@ -31,7 +31,12 @@ export const ListArticle = () => {
       </div>
 
       <div className="h-screen ">
-        <ArticleTable displayColumns={displayColumns} />
+        <ArticleTable
+          displayColumns={displayColumns}
+          setStatusCount={setStatusCount}
+          articleFilterConstraint={articleFilterConstraint}
+          searchString={searchString}
+        />
       </div>
     </div>
   );

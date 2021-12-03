@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import { Plus } from "@bigbinary/neeto-icons";
 import { Dropdown, Button, Checkbox } from "@bigbinary/neetoui/v2";
 
 export const ActionBlockComponent = ({ setDisplayColumns }) => {
@@ -76,7 +77,12 @@ export const ActionBlockComponent = ({ setDisplayColumns }) => {
           />
         </li>
       </Dropdown>
-      <Button label="Add new Article" className="bg-indigo-600 px-4" />
+      <Button
+        label="Add new Article"
+        className="bg-indigo-600 px-4"
+        to="/create/articles/"
+        icon={Plus}
+      />
     </div>
   );
 };

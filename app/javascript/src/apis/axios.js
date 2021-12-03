@@ -1,8 +1,11 @@
 import axios from "axios";
 
+import Toastr from "components/Common/Toastr";
+
+const DEFAULT_ERROR_NOTIFICATION = "Something went wrong!";
 axios.defaults.baseURL = "/";
 
-export const setAuthHeaders = (setLoading = () => null) => {
+const setAuthHeaders = (setLoading = () => null) => {
   axios.defaults.headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -16,3 +19,27 @@ export const setAuthHeaders = (setLoading = () => null) => {
   }
   setLoading(false);
 };
+const handleSuccessResponse = response => {
+  if (response) {
+    response.success = response.status === 200;
+    if (response.data.notice) {
+      Toastr.success(response.data.notice);
+    }
+  }
+
+  return response;
+};
+
+const handleErrorResponse = axiosErrorObject => {
+  Toastr.error(
+    axiosErrorObject.response?.data?.error || DEFAULT_ERROR_NOTIFICATION
+  );
+  return Promise.reject(axiosErrorObject);
+};
+
+const registerIntercepts = () => {
+  axios.interceptors.response.use(handleSuccessResponse, error =>
+    handleErrorResponse(error)
+  );
+};
+export { setAuthHeaders, registerIntercepts };
