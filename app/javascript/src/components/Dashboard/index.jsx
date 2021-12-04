@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 import { ListArticle } from "./ListArticle";
 import { Menubar } from "./Menubar";
-import { Navbar } from "./Navbar";
+
+import { Navbar } from "../Navbar";
 
 export const Dashboard = () => {
   const [statusCount, setStatusCount] = useState([]);

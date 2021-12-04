@@ -67,7 +67,7 @@ export const ArticleForm = ({
   }, []);
   return (
     <div>
-      <form className="px-64 mx-32 mt-8" onSubmit={handleErrors}>
+      <form className="w-5/12 mx-auto mt-8" onSubmit={handleErrors}>
         <div className="flex my-4 ">
           <Input
             label="Article Title"
@@ -79,7 +79,7 @@ export const ArticleForm = ({
           />
           <Select
             isSearchable
-            label="Select"
+            label="Category"
             name="ValueList"
             size="small"
             value={selectedCategory}
@@ -89,18 +89,16 @@ export const ArticleForm = ({
             }))}
             onChange={handleCategories}
             placeholder="Select a category"
-            required="required"
             error={errors.select}
           />
         </div>
         <Textarea
           rows="30"
-          label="Textarea"
+          label="Article Body"
           placeholder="Enter text"
           value={articleDetails.body}
           name="body"
           onChange={handleChange}
-          required="required"
           error={errors.textarea}
         />
         <div className="flex mt-4">

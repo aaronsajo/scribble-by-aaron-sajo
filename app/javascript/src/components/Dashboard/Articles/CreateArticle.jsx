@@ -4,7 +4,7 @@ import articleApi from "apis/articles";
 
 import { ArticleForm } from "./ArticleForm";
 
-import { Navbar } from "../Navbar";
+import { Navbar } from "../../Navbar";
 
 export const CreateArticle = () => {
   const [article, setArticle] = useState({
