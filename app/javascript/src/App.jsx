@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 import { PageLoader } from "@bigbinary/neetoui/v2";
-import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  Redirect,
+  BrowserRouter as Router,
+} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { setAuthHeaders, registerIntercepts } from "apis/axios";
@@ -10,7 +15,7 @@ import { initializeLogger } from "common/logger";
 import { Dashboard } from "./components/Dashboard";
 import { CreateArticle } from "./components/Dashboard/Articles/CreateArticle";
 import { EditArticle } from "./components/Dashboard/Articles/EditArticle";
-import { Settings } from "./components/Settings";
+import { GeneralSettings } from "./components/Settings";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -35,7 +40,10 @@ const App = () => {
 
         <Route exact path="/create/articles/" component={CreateArticle} />
         <Route exact path="/articles/:id/edit" component={EditArticle} />
-        <Route exact path="/settings" component={Settings} />
+        <Route exact path="/settings">
+          <Redirect to="/settings/general" />
+        </Route>
+        <Route exact path="/settings/general" component={GeneralSettings} />
       </Switch>
     </Router>
   );

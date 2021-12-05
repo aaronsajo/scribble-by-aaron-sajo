@@ -1,16 +1,13 @@
 import React from "react";
 
-import { SideBar } from "./SideBar";
+import { SettingsContainer } from "./SettingsContainer";
 
-import { Navbar } from "../Navbar";
-
-export const Settings = () => {
+export const GeneralSettings = () => {
   return (
-    <main className="flex flex-col h-screen">
-      <Navbar className="overflow-y-hidden" />
-      <div className="flex flex-auto  overflow-y-hidden">
-        <SideBar />
+    <SettingsContainer>
+      <div className="w-8/12">
+        <div className="mx-auto w-1/3">bjjbjh</div>
       </div>
-    </main>
+    </SettingsContainer>
   );
 };
