@@ -7,7 +7,7 @@ import articleApi from "apis/articles";
 
 import { ArticleForm } from "./ArticleForm";
 
-import { Container } from "../../Container";
+import Container from "../../Container";
 
 export const EditArticle = () => {
   const { id } = useParams();

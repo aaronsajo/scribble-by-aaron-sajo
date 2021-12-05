@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import { SideNewBar } from "./SideNewBar";
 
-import { Container } from "../Container";
+import Container from "../Container";
 
 const SettingsContainer = ({ children }) => {
   return (

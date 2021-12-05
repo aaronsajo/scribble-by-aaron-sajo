@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { ListArticle } from "./ListArticle";
 import { Menubar } from "./Menubar";
 
-import { Container } from "../Container";
+import Container from "../Container";
 
 export const Dashboard = () => {
   const [statusCount, setStatusCount] = useState([]);

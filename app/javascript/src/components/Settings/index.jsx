@@ -1,6 +1,6 @@
 import React from "react";
 
-import { SettingsContainer } from "./SettingsContainer";
+import SettingsContainer from "./SettingsContainer";
 
 export const GeneralSettings = () => {
   return (
