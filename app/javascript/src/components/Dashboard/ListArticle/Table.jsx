@@ -48,6 +48,7 @@ export const ArticleTable = ({
       dataIndex: coloumn,
       key: coloumn,
       title: coloumn,
+      className: coloumn === "title" ? "text-indigo-500" : null,
     }));
     dummyColumnData.push({
       render: (_, rowData) => (
