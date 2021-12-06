@@ -125,6 +125,7 @@ export const ArticleForm = ({
               {handleStatus()}
             </li>
           </Dropdown>
+          <Button label="Cancel" className="ml-4" to="/" style="text" />
         </div>
       </form>
     </div>
