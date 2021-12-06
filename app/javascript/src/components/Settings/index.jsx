@@ -28,8 +28,9 @@ export const GeneralSettings = () => {
     const passWord = e.target.value;
     setPassword(passWord);
     const minChar = passWord.length > 6 ? true : false;
-    const letterAndNumber =
-      /\d/.test(passWord) && /[a-zA-Z]/.test(passWord) ? true : false;
+    const letterAndNumber = /(?=.*?[0-9])(?=.*?[A-Za-z]).+/.test(passWord)
+      ? true
+      : false;
     setPasswordValidation({ minChar, letterAndNumber });
   };
   const handleSubmit = e => {
@@ -91,6 +92,10 @@ export const GeneralSettings = () => {
                 label="Password Protection Knowledge base"
                 value={isPassword}
                 onChange={() => setIsPassword(value => !value)}
+                style={{
+                  color: "#6366F1",
+                  borderRadius: "5px",
+                }}
               ></Checkbox>
               <div>
                 {isPassword && (
@@ -126,7 +131,7 @@ export const GeneralSettings = () => {
                   label="Save Changes"
                   type="submit"
                 />
-                <Button style="text" label="Cancel" className="ml-6" />
+                <Button style="text" label="Cancel" className="ml-6" to="/" />
               </div>
             </div>
           </form>

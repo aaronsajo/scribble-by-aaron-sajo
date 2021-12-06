@@ -21,6 +21,9 @@ export const ActionBlockComponent = ({ setDisplayColumns }) => {
     );
     setDisplayColumns(displayColumnsArrayDummy);
   };
+  const capitalizeFirstLetter = string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
   return (
     <div className="flex">
       <Dropdown
@@ -30,52 +33,22 @@ export const ActionBlockComponent = ({ setDisplayColumns }) => {
         closeOnSelect={false}
         className="px-4"
       >
-        <li>
-          <Checkbox
-            id="1"
-            label="Title"
-            name="title"
-            checked={checkedValue.title}
-            onChange={handleChange}
-          />
-        </li>
-        <li>
-          <Checkbox
-            id="2"
-            label="Categories"
-            name="category"
-            checked={checkedValue.category}
-            onChange={handleChange}
-          />
-        </li>
-        <li>
-          <Checkbox
-            id="3"
-            label="Date"
-            name="date"
-            checked={checkedValue.date}
-            onChange={handleChange}
-          />
-        </li>
-
-        <li>
-          <Checkbox
-            id="3"
-            label="Author"
-            name="author"
-            checked={checkedValue.author}
-            onChange={handleChange}
-          />
-        </li>
-        <li>
-          <Checkbox
-            id="4"
-            label="Status"
-            name="status"
-            checked={checkedValue.status}
-            onChange={handleChange}
-          />
-        </li>
+        {" "}
+        {Object.keys(checkedValue).map((value, i) => (
+          <li key={i}>
+            <Checkbox
+              id={i}
+              label={capitalizeFirstLetter(value)}
+              name={value}
+              checked={checkedValue[value]}
+              onChange={handleChange}
+              style={{
+                color: "#6366F1",
+                borderRadius: "5px",
+              }}
+            />
+          </li>
+        ))}
       </Dropdown>
       <Button
         label="Add new Article"

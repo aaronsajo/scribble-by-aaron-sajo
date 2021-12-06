@@ -7,13 +7,12 @@ class SitesController < ApplicationController
   end
 
   def update
-    puts site_params
     if @site.update(site_params)
       render status: :ok, json: {
         notice: t("successfully_updated", entity: "SiteDetail")
       }
     else
-      render status: :unprocessable_entity, json: { error: site.errors.full_messages }
+      render status: :unprocessable_entity, json: { error: @site.errors.full_messages }
     end
   end
 
