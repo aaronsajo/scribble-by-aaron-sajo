@@ -4,7 +4,7 @@ import articleApi from "apis/articles";
 
 import { ArticleForm } from "./ArticleForm";
 
-import { Navbar } from "../Navbar";
+import Container from "../../Container";
 
 export const CreateArticle = () => {
   const [article, setArticle] = useState({
@@ -23,8 +23,7 @@ export const CreateArticle = () => {
     }
   };
   return (
-    <div>
-      <Navbar />
+    <Container>
       <ArticleForm
         articleDetails={article}
         setArticleDetails={setArticle}
@@ -32,6 +31,6 @@ export const CreateArticle = () => {
         setSelectedCategory={setSelectedCategory}
         handleSubmit={handleSubmit}
       />
-    </div>
+    </Container>
   );
 };

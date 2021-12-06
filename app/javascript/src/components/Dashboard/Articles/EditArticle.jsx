@@ -7,7 +7,7 @@ import articleApi from "apis/articles";
 
 import { ArticleForm } from "./ArticleForm";
 
-import { Navbar } from "../Navbar";
+import Container from "../../Container";
 
 export const EditArticle = () => {
   const { id } = useParams();
@@ -42,19 +42,16 @@ export const EditArticle = () => {
   };
   if (loading) {
     return (
-      <div>
-        <Navbar />
+      <Container>
         <div className="mt-40">
           <PageLoader />
         </div>
-      </div>
+      </Container>
     );
   }
 
   return (
-    <div>
-      <Navbar />
-
+    <Container>
       <ArticleForm
         articleDetails={article}
         setArticleDetails={setArticle}
@@ -62,6 +59,6 @@ export const EditArticle = () => {
         setSelectedCategory={setSelectedCategory}
         handleSubmit={handleSubmit}
       />
-    </div>
+    </Container>
   );
 };

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 import { ListArticle } from "./ListArticle";
 import { Menubar } from "./Menubar";
-import { Navbar } from "./Navbar";
+
+import Container from "../Container";
 
 export const Dashboard = () => {
   const [statusCount, setStatusCount] = useState([]);
@@ -11,8 +12,7 @@ export const Dashboard = () => {
     category: null,
   });
   return (
-    <main className="flex flex-col h-screen">
-      <Navbar className="overflow-y-hidden" />
+    <Container>
       <div className="flex flex-auto  overflow-y-hidden">
         <Menubar
           statusCount={statusCount}
@@ -24,6 +24,6 @@ export const Dashboard = () => {
           articleFilterConstraint={articleFilterConstraint}
         />
       </div>
-    </main>
+    </Container>
   );
 };
