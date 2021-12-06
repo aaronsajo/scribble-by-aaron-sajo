@@ -9,7 +9,7 @@ class SitesController < ApplicationController
   def update
     if @site.update(site_params)
       render status: :ok, json: {
-        notice: t("successfully_updated", entity: "SiteDetail")
+        notice: t("successfully_updated", entity: "Site Details")
       }
     else
       render status: :unprocessable_entity, json: { error: @site.errors.full_messages }
