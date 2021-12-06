@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Check, Close } from "@bigbinary/neeto-icons";
 import { Button, Typography, Input, Checkbox } from "@bigbinary/neetoui/v2";
+import { Toastr } from "@bigbinary/neetoui/v2";
+
+import siteApi from "apis/sites";
 
 import SettingsContainer from "./SettingsContainer";
 
@@ -13,6 +16,14 @@ export const GeneralSettings = () => {
     minChar: false,
     letterAndNumber: false,
   });
+  const [errors, setErrors] = useState("");
+  const fetchSiteDetails = async () => {
+    const response = await siteApi.show();
+    setSiteName(response.data.name);
+  };
+  useEffect(() => {
+    fetchSiteDetails();
+  }, []);
   const handlePassword = e => {
     const passWord = e.target.value;
     setPassword(passWord);
@@ -21,11 +32,41 @@ export const GeneralSettings = () => {
       /\d/.test(passWord) && /[a-zA-Z]/.test(passWord) ? true : false;
     setPasswordValidation({ minChar, letterAndNumber });
   };
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    if (siteName.trim().length <= 0) {
+      setErrors("Required");
+    } else {
+      setErrors("");
+      const passValidation =
+        passwordValidation.minChar && passwordValidation.letterAndNumber;
+      if (isPassword) {
+        if (passValidation) {
+          siteApi.update({
+            site: {
+              name: siteName,
+              password: password,
+            },
+          });
+        } else {
+          Toastr.error("Check the password requirement.");
+        }
+      } else {
+        siteApi.update({
+          site: {
+            name: siteName,
+            password: null,
+          },
+        });
+      }
+    }
+  };
   return (
     <SettingsContainer>
       <div className="w-10/12">
         <div className="w-1/3 mx-auto">
-          <form className="mt-4">
+          <form className="mt-4" onSubmit={handleSubmit}>
             <div className="border-b-2 pb-5">
               <Typography style="h2">General Settings</Typography>
               <Typography style="body2" className="text-gray-600">
@@ -36,6 +77,7 @@ export const GeneralSettings = () => {
                 className="mt-5"
                 value={siteName}
                 onChange={e => setSiteName(e.target.value)}
+                error={errors}
               />
               <Typography style="body3" className="text-gray-500">
                 Customize the site name which is used to show the site name in

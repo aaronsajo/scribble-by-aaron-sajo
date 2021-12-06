@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :site do
-    name { "MyText" }
+    name { Faker::Lorem.sentence[0..49] }
   end
 end
