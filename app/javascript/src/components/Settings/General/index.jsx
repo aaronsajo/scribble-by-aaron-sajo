@@ -6,7 +6,7 @@ import { Toastr } from "@bigbinary/neetoui/v2";
 
 import siteApi from "apis/sites";
 
-import SettingsContainer from "./SettingsContainer";
+import SettingsContainer from "../SettingsContainer";
 
 export const GeneralSettings = () => {
   const [isPassword, setIsPassword] = useState(false);
@@ -65,8 +65,8 @@ export const GeneralSettings = () => {
   };
   return (
     <SettingsContainer>
-      <div className="w-10/12">
-        <div className="w-1/3 mx-auto">
+      <div className="w-400  mx-auto">
+        <div>
           <form className="mt-4" onSubmit={handleSubmit}>
             <div className="border-b-2 pb-5">
               <Typography style="h2">General Settings</Typography>

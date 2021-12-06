@@ -109,6 +109,7 @@ export const ArticleTable = ({
         {rowData.length} Articles
       </Typography>
       <Table
+        className="even:bg-gray-100"
         rowSelection={false}
         columnData={colData}
         rowData={filteredRowData}
