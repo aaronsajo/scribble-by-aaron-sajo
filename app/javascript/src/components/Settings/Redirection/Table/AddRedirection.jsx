@@ -4,16 +4,20 @@ import redirectionApi from "apis/redirections";
 
 import { RedirectionForm } from "./RedirectionForm";
 
-export const AddRedirection = () => {
+export const AddRedirection = ({
+  setAddRedirection,
+  fetchRedirectionsDetails,
+}) => {
   const [redirection, setRedirection] = useState({
     from: "",
     to: "",
   });
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     try {
-      redirectionApi.create(redirection);
-      location.reload();
+      await redirectionApi.create(redirection);
+      setAddRedirection(false);
+      fetchRedirectionsDetails();
     } catch (error) {
       logger.error(error);
     }

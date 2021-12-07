@@ -13,7 +13,7 @@ export const Table = () => {
   const [redirectionDetails, setRedirectionDetails] = useState([]);
   const [addRedirection, setAddRedirection] = useState(false);
 
-  const fetchRedirectionDetails = async () => {
+  const fetchRedirectionsDetails = async () => {
     try {
       const response = await redirectionApi.list();
       setRedirectionDetails(response.data.redirection);
@@ -22,26 +22,37 @@ export const Table = () => {
     }
   };
   useEffect(() => {
-    fetchRedirectionDetails();
+    fetchRedirectionsDetails();
   }, []);
   return (
     <table className="w-11/12 mx-auto ">
       <Header />
       <tbody>
         {redirectionDetails.map((redirection, index) => (
-          <Row redirection={redirection} key={index} />
+          <Row
+            redirection={redirection}
+            key={index}
+            fetchRedirectionsDetails={fetchRedirectionsDetails}
+          />
         ))}
 
-        {addRedirection && <AddRedirection />}
+        {addRedirection && (
+          <AddRedirection
+            setAddRedirection={setAddRedirection}
+            fetchRedirectionsDetails={fetchRedirectionsDetails}
+          />
+        )}
         <tr>
           <td>
-            <Button
-              icon={Plus}
-              label="Add New Redirection"
-              style="link"
-              iconPosition="left"
-              onClick={() => setAddRedirection(true)}
-            />
+            {!addRedirection && (
+              <Button
+                icon={Plus}
+                label="Add New Redirection"
+                style="link"
+                iconPosition="left"
+                onClick={() => setAddRedirection(true)}
+              />
+            )}
           </td>
         </tr>
       </tbody>

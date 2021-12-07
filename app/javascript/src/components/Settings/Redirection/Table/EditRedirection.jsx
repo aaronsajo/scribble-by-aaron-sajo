@@ -4,19 +4,24 @@ import redirectionApi from "apis/redirections";
 
 import { RedirectionForm } from "./RedirectionForm";
 
-export const EditRedirection = ({ id }) => {
+export const EditRedirection = ({
+  id,
+  setIsEdit,
+  fetchRedirectionsDetails,
+}) => {
   const [redirection, setRedirection] = useState({});
-  const fetchRedirectionDetails = async () => {
+  const fetchRedirection = async () => {
     const response = await redirectionApi.show(id);
     setRedirection(response.data.redirection);
   };
   useEffect(() => {
-    fetchRedirectionDetails();
+    fetchRedirection();
   }, []);
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     try {
-      redirectionApi.update({ id, payload: redirection });
-      location.reload();
+      await redirectionApi.update({ id, payload: redirection });
+      setIsEdit(false);
+      fetchRedirectionsDetails();
     } catch (error) {
       logger.error(error);
     }

@@ -7,20 +7,28 @@ import redirectionApi from "apis/redirections";
 
 import { EditRedirection } from "./EditRedirection";
 
-export const Row = ({ redirection }) => {
+export const Row = ({ redirection, fetchRedirectionsDetails }) => {
   const [isEdit, setIsEdit] = useState(false);
-  const handleDelete = id => {
+  const handleDelete = async id => {
     const value = confirm("Press OK to Delete Redirection");
     if (value) {
       try {
-        redirectionApi.destroy(id);
-        location.reload();
+        await redirectionApi.destroy(id);
+        fetchRedirectionsDetails();
       } catch (error) {
         logger.error(error);
       }
     }
   };
-  if (isEdit) return <EditRedirection id={redirection.id} />;
+  if (isEdit) {
+    return (
+      <EditRedirection
+        id={redirection.id}
+        setIsEdit={setIsEdit}
+        fetchRedirectionsDetails={fetchRedirectionsDetails}
+      />
+    );
+  }
 
   return (
     <tr className="bg-white border-b-8 border-indigo-100">
@@ -31,7 +39,9 @@ export const Row = ({ redirection }) => {
         <Typography style="body2"> /{redirection.from}</Typography>
       </td>
       <td>
-        {window.location.origin}/{redirection.to}
+        <Typography style="body2">
+          {window.location.origin}/{redirection.to}
+        </Typography>
       </td>
       <td>
         <Button style="text" icon={Edit} onClick={() => setIsEdit(true)} />
