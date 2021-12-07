@@ -6,8 +6,14 @@ module.exports = {
   },
   purge: [],
   theme: {
-    extend: {},
+    extend: {
+      width:{
+        '400':'400px',
+        '720':'720px',
+        '384':'384px'
+      }
+    },
   },
-  variants: {},
+  variants: {backgroundColor: ["even"]},
   plugins: [],
 }

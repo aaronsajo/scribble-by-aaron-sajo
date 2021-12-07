@@ -15,7 +15,8 @@ import { initializeLogger } from "common/logger";
 import { Dashboard } from "./components/Dashboard";
 import { CreateArticle } from "./components/Dashboard/Articles/CreateArticle";
 import { EditArticle } from "./components/Dashboard/Articles/EditArticle";
-import { GeneralSettings } from "./components/Settings";
+import { GeneralSettings } from "./components/Settings/General";
+import { Redirection } from "./components/Settings/Redirection";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -44,6 +45,7 @@ const App = () => {
           <Redirect to="/settings/general" />
         </Route>
         <Route exact path="/settings/general" component={GeneralSettings} />
+        <Route exact path="/settings/Redirection" component={Redirection} />
       </Switch>
     </Router>
   );
