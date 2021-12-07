@@ -9,7 +9,7 @@ import SettingsContainer from "../SettingsContainer";
 export const Redirection = () => {
   return (
     <SettingsContainer>
-      <div className="w-720  mx-auto">
+      <div className="w-720  mx-auto mt-10">
         <Typography style="h2">Redirection</Typography>
         <Typography style="body1" className="text-gray-600">
           Create and configure redirection rules to send users from old links to

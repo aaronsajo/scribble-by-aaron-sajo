@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Plus } from "@bigbinary/neeto-icons";
-import { Button } from "@bigbinary/neetoui/v2";
+import { Button, Typography } from "@bigbinary/neetoui/v2";
 
 import redirectionApi from "apis/redirections";
 
@@ -28,13 +28,21 @@ export const Table = () => {
     <table className="w-11/12 mx-auto ">
       <Header />
       <tbody>
-        {redirectionDetails.map((redirection, index) => (
-          <Row
-            redirection={redirection}
-            key={index}
-            fetchRedirectionsDetails={fetchRedirectionsDetails}
-          />
-        ))}
+        {redirectionDetails.length === 0 ? (
+          <tr>
+            <td colSpan="3" className="text-center">
+              <Typography className="mb-2">No redirections found.</Typography>
+            </td>
+          </tr>
+        ) : (
+          redirectionDetails.map((redirection, index) => (
+            <Row
+              redirection={redirection}
+              key={index}
+              fetchRedirectionsDetails={fetchRedirectionsDetails}
+            />
+          ))
+        )}
 
         {addRedirection && (
           <AddRedirection

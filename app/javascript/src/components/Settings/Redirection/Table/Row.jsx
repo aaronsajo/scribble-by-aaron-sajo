@@ -44,12 +44,12 @@ export const Row = ({ redirection, fetchRedirectionsDetails }) => {
         </Typography>
       </td>
       <td>
-        <Button style="text" icon={Edit} onClick={() => setIsEdit(true)} />
         <Button
           style="text"
           icon={Delete}
           onClick={() => handleDelete(redirection.id)}
         />
+        <Button style="text" icon={Edit} onClick={() => setIsEdit(true)} />
       </td>
     </tr>
   );
