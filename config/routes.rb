@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :categories, only: %i[create index]
   resources :articles, except: %i[new edit]
   resource :sites, only: %i[show update]
-
+  resources :redirections, except: %i[new edit]
   root "home#index"
   get "*path", to: "home#index", via: :all
 end

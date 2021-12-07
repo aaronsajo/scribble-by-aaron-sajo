@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import { Check, Close } from "@bigbinary/neeto-icons";
 import { Button, Typography, Input, Checkbox } from "@bigbinary/neetoui/v2";
 import { Toastr } from "@bigbinary/neetoui/v2";
 
 import siteApi from "apis/sites";
+
+import { PasswordComponent } from "./PasswordComponent";
 
 import SettingsContainer from "../SettingsContainer";
 
@@ -18,8 +19,12 @@ export const GeneralSettings = () => {
   });
   const [errors, setErrors] = useState("");
   const fetchSiteDetails = async () => {
-    const response = await siteApi.show();
-    setSiteName(response.data.name);
+    try {
+      const response = await siteApi.show();
+      setSiteName(response.data.name);
+    } catch (error) {
+      logger.error(error);
+    }
   };
   useEffect(() => {
     fetchSiteDetails();
@@ -39,27 +44,31 @@ export const GeneralSettings = () => {
     if (siteName.trim().length <= 0) {
       setErrors("Required");
     } else {
-      setErrors("");
-      const passValidation =
-        passwordValidation.minChar && passwordValidation.letterAndNumber;
-      if (isPassword) {
-        if (passValidation) {
+      try {
+        setErrors("");
+        const passValidation =
+          passwordValidation.minChar && passwordValidation.letterAndNumber;
+        if (isPassword) {
+          if (passValidation) {
+            siteApi.update({
+              site: {
+                name: siteName,
+                password: password,
+              },
+            });
+          } else {
+            Toastr.error("Check the password requirement.");
+          }
+        } else {
           siteApi.update({
             site: {
               name: siteName,
-              password: password,
+              password: null,
             },
           });
-        } else {
-          Toastr.error("Check the password requirement.");
         }
-      } else {
-        siteApi.update({
-          site: {
-            name: siteName,
-            password: null,
-          },
-        });
+      } catch (error) {
+        logger.error(error);
       }
     }
   };
@@ -99,30 +108,11 @@ export const GeneralSettings = () => {
               ></Checkbox>
               <div>
                 {isPassword && (
-                  <div>
-                    <Input
-                      label="Password"
-                      className="mt-5"
-                      value={password}
-                      onChange={handlePassword}
-                    />
-                    <Typography style="body3" className="py-3 flex">
-                      {passwordValidation.minChar ? (
-                        <Check size={18} color="#008000" />
-                      ) : (
-                        <Close size={16} color="#FF0000" />
-                      )}
-                      Have atleast 6 characters
-                    </Typography>
-                    <Typography style="body3" className="flex">
-                      {passwordValidation.letterAndNumber ? (
-                        <Check size={18} color="#008000" />
-                      ) : (
-                        <Close size={16} color="#FF0000" />
-                      )}
-                      Include at least 1 letter and 1 number{" "}
-                    </Typography>
-                  </div>
+                  <PasswordComponent
+                    password={password}
+                    handlePassword={handlePassword}
+                    passwordValidation={passwordValidation}
+                  />
                 )}
               </div>
               <div className="my-4">
