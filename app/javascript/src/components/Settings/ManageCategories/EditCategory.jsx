@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 
-import { CategoryForm } from "./CategoryForm";
+import categoryApi from "apis/categories";
 
-import categoryApi from "../../../apis/categories";
+import { CategoryForm } from "./CategoryForm";
 
 export const EditCategory = ({ id, setIsEdit, fetchCategories }) => {
   const [category, setCategory] = useState({});
   const fetchRedirection = async () => {
-    const response = await categoryApi.show(id);
-    setCategory(response.data.category);
+    try {
+      const response = await categoryApi.show(id);
+      setCategory(response.data.category);
+    } catch (error) {
+      logger.error(error);
+    }
   };
   useEffect(() => {
     fetchRedirection();

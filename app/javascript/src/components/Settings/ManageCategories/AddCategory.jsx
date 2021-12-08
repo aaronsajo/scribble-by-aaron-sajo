@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import { CategoryForm } from "./CategoryForm";
+import categoryApi from "apis/categories";
 
-import categoryApi from "../../../apis/categories";
+import { CategoryForm } from "./CategoryForm";
 
 export const AddCategory = ({ setAddCategories, fetchCategories }) => {
   const [category, setCategory] = useState({ name: "" });

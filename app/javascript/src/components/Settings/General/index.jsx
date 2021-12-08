@@ -38,7 +38,7 @@ export const GeneralSettings = () => {
       : false;
     setPasswordValidation({ minChar, letterAndNumber });
   };
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     if (siteName.trim().length <= 0) {
@@ -50,7 +50,7 @@ export const GeneralSettings = () => {
           passwordValidation.minChar && passwordValidation.letterAndNumber;
         if (isPassword) {
           if (passValidation) {
-            siteApi.update({
+            await siteApi.update({
               site: {
                 name: siteName,
                 password: password,
@@ -60,7 +60,7 @@ export const GeneralSettings = () => {
             Toastr.error("Check the password requirement.");
           }
         } else {
-          siteApi.update({
+          await siteApi.update({
             site: {
               name: siteName,
               password: null,

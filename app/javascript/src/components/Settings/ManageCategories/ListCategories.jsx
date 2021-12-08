@@ -9,11 +9,11 @@ import { EditCategory } from "./EditCategory";
 
 export const ListCategories = ({ category, fetchCategories }) => {
   const [isEdit, setIsEdit] = useState(false);
-  const handleDelete = id => {
+  const handleDelete = async id => {
     const value = confirm("Press OK to Delete Category");
     if (value) {
       try {
-        categoryApi.destroy(id);
+        await categoryApi.destroy(id);
         fetchCategories();
       } catch (error) {
         logger.error(error);

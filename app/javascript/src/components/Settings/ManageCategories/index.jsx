@@ -15,8 +15,12 @@ export const ManageCategories = () => {
   const [categoriesList, setCategoryList] = useState([]);
   const [addCategories, setAddCategories] = useState(false);
   const fetchCategories = async () => {
-    const response = await categoryApi.list();
-    setCategoryList(response.data.categories);
+    try {
+      const response = await categoryApi.list();
+      setCategoryList(response.data.categories);
+    } catch (error) {
+      logger.error(error);
+    }
   };
 
   useEffect(() => {

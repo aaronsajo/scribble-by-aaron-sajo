@@ -11,8 +11,12 @@ export const EditRedirection = ({
 }) => {
   const [redirection, setRedirection] = useState({});
   const fetchRedirection = async () => {
-    const response = await redirectionApi.show(id);
-    setRedirection(response.data.redirection);
+    try {
+      const response = await redirectionApi.show(id);
+      setRedirection(response.data.redirection);
+    } catch (error) {
+      logger.error(error);
+    }
   };
   useEffect(() => {
     fetchRedirection();
