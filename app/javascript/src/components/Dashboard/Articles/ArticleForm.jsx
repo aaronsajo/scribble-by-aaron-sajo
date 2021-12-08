@@ -27,6 +27,13 @@ export const ArticleForm = ({
       logger.error(error);
     }
   };
+  const showStatus = num => {
+    if (num) {
+      return articleDetails.status === "Published" ? "Save Draft" : "Publish";
+    }
+
+    return articleDetails.status === "Published" ? "Publish" : "Save Draft";
+  };
   const handleStatus = () => {
     return articleDetails.status === "Published" ? "Draft" : "Published";
   };
@@ -104,7 +111,7 @@ export const ArticleForm = ({
         <div className="flex mt-4">
           <Button
             className="bg-indigo-500"
-            label={"Save " + articleDetails.status}
+            label={showStatus(0)}
             type="submit"
           />
           <Dropdown
@@ -122,7 +129,7 @@ export const ArticleForm = ({
               }}
               className="bg-indigo-500 text-gray-100"
             >
-              {handleStatus()}
+              {showStatus(1)}
             </li>
           </Dropdown>
           <Button label="Cancel" className="ml-4" to="/" style="text" />

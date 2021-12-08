@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Typography } from "@bigbinary/neetoui/v2";
+import { PageLoader } from "@bigbinary/neetoui/v2";
+
+import redirectionApi from "apis/redirections";
 
 import { Table } from "./Table";
 
 import SettingsContainer from "../SettingsContainer";
 
 export const Redirection = () => {
+  const [redirectionDetails, setRedirectionDetails] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const fetchRedirectionsDetails = async () => {
+    try {
+      setLoading(true);
+      const response = await redirectionApi.list();
+      setRedirectionDetails(response.data.redirection);
+    } catch (error) {
+      logger.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchRedirectionsDetails();
+  }, []);
+  if (loading) {
+    return <PageLoader className="flex items-center justify-center mt-64" />;
+  }
+
   return (
     <SettingsContainer>
       <div className="w-720  mx-auto mt-10">
@@ -17,7 +40,10 @@ export const Redirection = () => {
           SEO friendly.
         </Typography>
         <div className="bg-indigo-100 py-4">
-          <Table />
+          <Table
+            redirectionDetails={redirectionDetails}
+            fetchRedirectionsDetails={fetchRedirectionsDetails}
+          />
         </div>
       </div>
     </SettingsContainer>

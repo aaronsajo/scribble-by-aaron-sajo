@@ -16,6 +16,7 @@ import { Dashboard } from "./components/Dashboard";
 import { CreateArticle } from "./components/Dashboard/Articles/CreateArticle";
 import { EditArticle } from "./components/Dashboard/Articles/EditArticle";
 import { GeneralSettings } from "./components/Settings/General";
+import { ManageCategories } from "./components/Settings/ManageCategories";
 import { Redirection } from "./components/Settings/Redirection";
 
 const App = () => {
@@ -45,7 +46,12 @@ const App = () => {
           <Redirect to="/settings/general" />
         </Route>
         <Route exact path="/settings/general" component={GeneralSettings} />
-        <Route exact path="/settings/Redirection" component={Redirection} />
+        <Route exact path="/settings/redirection" component={Redirection} />
+        <Route
+          exact
+          path="/settings/managecategories"
+          component={ManageCategories}
+        />
       </Switch>
     </Router>
   );

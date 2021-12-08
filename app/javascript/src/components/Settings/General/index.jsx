@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Button, Typography, Input, Checkbox } from "@bigbinary/neetoui/v2";
 import { Toastr } from "@bigbinary/neetoui/v2";
+import { PageLoader } from "@bigbinary/neetoui/v2";
 
 import siteApi from "apis/sites";
 
@@ -13,6 +14,7 @@ export const GeneralSettings = () => {
   const [isPassword, setIsPassword] = useState(false);
   const [siteName, setSiteName] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [passwordValidation, setPasswordValidation] = useState({
     minChar: false,
     letterAndNumber: false,
@@ -20,10 +22,13 @@ export const GeneralSettings = () => {
   const [errors, setErrors] = useState("");
   const fetchSiteDetails = async () => {
     try {
+      setLoading(true);
       const response = await siteApi.show();
       setSiteName(response.data.name);
     } catch (error) {
       logger.error(error);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -38,7 +43,7 @@ export const GeneralSettings = () => {
       : false;
     setPasswordValidation({ minChar, letterAndNumber });
   };
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     if (siteName.trim().length <= 0) {
@@ -50,7 +55,7 @@ export const GeneralSettings = () => {
           passwordValidation.minChar && passwordValidation.letterAndNumber;
         if (isPassword) {
           if (passValidation) {
-            siteApi.update({
+            await siteApi.update({
               site: {
                 name: siteName,
                 password: password,
@@ -60,7 +65,7 @@ export const GeneralSettings = () => {
             Toastr.error("Check the password requirement.");
           }
         } else {
-          siteApi.update({
+          await siteApi.update({
             site: {
               name: siteName,
               password: null,
@@ -72,6 +77,11 @@ export const GeneralSettings = () => {
       }
     }
   };
+
+  if (loading) {
+    return <PageLoader className="flex items-center justify-center mt-64" />;
+  }
+
   return (
     <SettingsContainer>
       <div className="w-400  mx-auto">
