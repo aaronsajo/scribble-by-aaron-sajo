@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Plus } from "@bigbinary/neeto-icons";
 import { Typography, Button } from "@bigbinary/neetoui/v2";
+import { PageLoader } from "@bigbinary/neetoui/v2";
 import Sortable from "sortablejs";
 
 import categoryApi from "apis/categories";
@@ -14,24 +15,32 @@ import SettingsContainer from "../SettingsContainer";
 export const ManageCategories = () => {
   const [categoriesList, setCategoryList] = useState([]);
   const [addCategories, setAddCategories] = useState(false);
+  const [loading, setLoading] = useState(false);
   const fetchCategories = async () => {
     try {
+      setLoading(true);
       const response = await categoryApi.list();
       setCategoryList(response.data.categories);
     } catch (error) {
       logger.error(error);
+    } finally {
+      setLoading(false);
     }
   };
+  useEffect(() => {
+    const element = document.getElementById("category-list");
+    if (element) {
+      Sortable.create(element, {
+        handle: ".handle",
+        animation: 150,
+        ghostClass: "bg-gray-100",
+        onEnd: handleDrop,
+      });
+    }
+  }, [loading]);
 
   useEffect(() => {
     fetchCategories();
-    const element = document.getElementById("category-list");
-    Sortable.create(element, {
-      handle: ".handle",
-      animation: 150,
-      ghostClass: "bg-gray-100",
-      onEnd: handleDrop,
-    });
   }, []);
   const handleDrop = async e => {
     const droppedElementId = parseInt(e.item.id);
@@ -45,6 +54,10 @@ export const ManageCategories = () => {
       logger.error(error);
     }
   };
+  if (loading) {
+    return <PageLoader className="flex items-center justify-center mt-64" />;
+  }
+
   return (
     <SettingsContainer>
       <div className="w-720  mx-auto mt-10">

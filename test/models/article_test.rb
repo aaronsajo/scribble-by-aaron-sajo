@@ -28,10 +28,4 @@ class ArticleTest < ActiveSupport::TestCase
     assert @article.invalid?
     assert_includes @article.errors.full_messages, "Body can't be blank"
   end
-
-  def test_article_should_be_invalid_without_body
-    @article.category = nil
-    assert @article.invalid?
-    assert_includes @article.errors.full_messages, "Category must exist"
-  end
 end
