@@ -31,7 +31,7 @@ export const ListCategories = ({ category, fetchCategories }) => {
   }
 
   return (
-    <div className="w-640">
+    <div className="w-640" id={category.id}>
       <div className="flex justify-between border-gray-100 py-2 border-t-2 ml-4">
         <div className="mt-2 flex">
           <Reorder class="handle" />

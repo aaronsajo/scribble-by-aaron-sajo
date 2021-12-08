@@ -3,7 +3,7 @@
 class CategoriesController < ApplicationController
   before_action :load_category, except: %i[ create index ]
   def index
-    @categories = Category.all.order("created_at Desc")
+    @categories = Category.all.order("position ASC")
   end
 
   def create
@@ -17,8 +17,17 @@ class CategoriesController < ApplicationController
   def show
   end
 
+  def sort
+    if @category.update!(position: category_params[:position])
+      render status: :ok, json: {}
+    else
+      render status: :unprocessable_entity,
+        json: { error: @category.errors.full_messages.to_sentence }
+    end
+  end
+
   def update
-    if @category.update!(category_params)
+    if @category.update!(name: category_params[:name])
       render status: :ok, json: { notice: t("successfully_updated", entity: "Category") }
     else
       render status: :unprocessable_entity,
@@ -39,7 +48,7 @@ class CategoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def category_params
-      params.require(:category).permit(:name)
+      params.require(:category).permit(:name, :position)
     end
 
     def load_category

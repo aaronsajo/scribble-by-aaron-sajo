@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_07_222045) do
+ActiveRecord::Schema.define(version: 2021_12_08_170929) do
 
   create_table "articles", force: :cascade do |t|
     t.text "title", null: false
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2021_12_07_222045) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "position"
   end
 
   create_table "redirections", force: :cascade do |t|

@@ -25,9 +25,22 @@ export const ManageCategories = () => {
     Sortable.create(element, {
       handle: ".handle",
       animation: 150,
-      ghostClass: "blue-background-class",
+      ghostClass: "bg-gray-100",
+      onEnd: handleDrop,
     });
   }, []);
+  const handleDrop = async e => {
+    const droppedElementId = parseInt(e.item.id);
+    const newPosition = e.newIndex + 1;
+    try {
+      await categoryApi.sort({
+        id: droppedElementId,
+        payload: { category: { position: newPosition } },
+      });
+    } catch (error) {
+      logger.error(error);
+    }
+  };
   return (
     <SettingsContainer>
       <div className="w-720  mx-auto mt-10">
@@ -57,6 +70,7 @@ export const ManageCategories = () => {
               category={category}
               key={index}
               fetchCategories={fetchCategories}
+              id={category.id}
             />
           ))}
         </div>
