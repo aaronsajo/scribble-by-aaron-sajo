@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Plus } from "@bigbinary/neeto-icons";
 import { Typography, Button } from "@bigbinary/neetoui/v2";
+import Sortable from "sortablejs";
 
 import categoryApi from "apis/categories";
 
@@ -20,6 +21,12 @@ export const ManageCategories = () => {
 
   useEffect(() => {
     fetchCategories();
+    const element = document.getElementById("category-list");
+    Sortable.create(element, {
+      handle: ".handle",
+      animation: 150,
+      ghostClass: "blue-background-class",
+    });
   }, []);
   return (
     <SettingsContainer>
@@ -44,13 +51,15 @@ export const ManageCategories = () => {
             fetchCategories={fetchCategories}
           />
         )}
-        {categoriesList.map((category, index) => (
-          <ListCategories
-            category={category}
-            key={index}
-            fetchCategories={fetchCategories}
-          />
-        ))}
+        <div id="category-list">
+          {categoriesList.map((category, index) => (
+            <ListCategories
+              category={category}
+              key={index}
+              fetchCategories={fetchCategories}
+            />
+          ))}
+        </div>
       </div>
     </SettingsContainer>
   );

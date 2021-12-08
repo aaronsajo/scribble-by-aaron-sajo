@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Edit, Delete } from "@bigbinary/neeto-icons";
+import { Edit, Delete, Reorder } from "@bigbinary/neeto-icons";
 import { Button } from "@bigbinary/neetoui/v2";
 
 import categoryApi from "apis/categories";
@@ -33,7 +33,10 @@ export const ListCategories = ({ category, fetchCategories }) => {
   return (
     <div className="w-640">
       <div className="flex justify-between border-gray-100 py-2 border-t-2 ml-4">
-        <div className="mt-2">{category.name}</div>
+        <div className="mt-2 flex">
+          <Reorder class="handle" />
+          {category.name}
+        </div>
         <div className="flex">
           <Button
             style="text"
