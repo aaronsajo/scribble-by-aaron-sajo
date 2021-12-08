@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
 
-  resources :categories, only: %i[create index]
+  resources :categories, except: %i[new edit]
   resources :articles, except: %i[new edit]
   resource :sites, only: %i[show update]
   resources :redirections, except: %i[new edit]

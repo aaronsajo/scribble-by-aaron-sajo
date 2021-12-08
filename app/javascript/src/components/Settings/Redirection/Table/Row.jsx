@@ -32,18 +32,22 @@ export const Row = ({ redirection, fetchRedirectionsDetails }) => {
 
   return (
     <tr className="bg-white border-b-8 border-indigo-100">
-      <td className="text-left flex p-3">
+      <td
+        className="text-left flex p-3 overflow-x-auto mr-3"
+        style={{ maxWidth: "300px", minWidth: "300px" }}
+      >
         <Typography style="body2" className="text-gray-500">
           {window.location.origin}
         </Typography>
         <Typography style="body2"> /{redirection.from}</Typography>
       </td>
-      <td>
-        <Typography style="body2">
-          {window.location.origin}/{redirection.to}
-        </Typography>
+      <td
+        className=" overflow-x-auto"
+        style={{ maxWidth: "280px", minWidth: "280px" }}
+      >
+        {window.location.origin}/{redirection.to}
       </td>
-      <td>
+      <td className="pr-2">
         <Button
           style="text"
           icon={Delete}

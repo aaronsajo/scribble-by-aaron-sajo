@@ -25,7 +25,7 @@ export const Table = () => {
     fetchRedirectionsDetails();
   }, []);
   return (
-    <table className="w-11/12 mx-auto ">
+    <table className="w-680 mx-auto " style={{ minWidth: "680px" }}>
       <Header />
       <tbody>
         {redirectionDetails.length === 0 ? (
@@ -52,15 +52,13 @@ export const Table = () => {
         )}
         <tr>
           <td>
-            {!addRedirection && (
-              <Button
-                icon={Plus}
-                label="Add New Redirection"
-                style="link"
-                iconPosition="left"
-                onClick={() => setAddRedirection(true)}
-              />
-            )}
+            <Button
+              icon={Plus}
+              label="Add New Redirection"
+              style="link"
+              iconPosition="left"
+              onClick={() => setAddRedirection(value => !value)}
+            />
           </td>
         </tr>
       </tbody>

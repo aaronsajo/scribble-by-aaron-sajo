@@ -16,11 +16,11 @@ export const ArticleTable = ({
   const [rowData, setRowData] = useState([]);
   const [filteredRowData, setFilteredRowData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const handleDelete = id => {
+  const handleDelete = async id => {
     const value = confirm("Press OK to Delete Article");
     if (value) {
       try {
-        articleApi.destroy(id);
+        await articleApi.destroy(id);
         fetchArticleDetails();
       } catch (error) {
         logger.error(error);
@@ -48,7 +48,7 @@ export const ArticleTable = ({
       dataIndex: coloumn,
       key: coloumn,
       title: coloumn,
-      className: coloumn === "title" ? "text-indigo-500" : null,
+      className: coloumn !== "title" ? "text-gray-600" : null,
     }));
     dummyColumnData.push({
       render: (_, rowData) => (
@@ -109,7 +109,7 @@ export const ArticleTable = ({
         {rowData.length} Articles
       </Typography>
       <Table
-        className="even:bg-gray-100"
+        className="even:bg-gray-100 text-indigo-500"
         rowSelection={false}
         columnData={colData}
         rowData={filteredRowData}

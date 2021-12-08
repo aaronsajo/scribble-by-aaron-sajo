@@ -58,7 +58,7 @@ export const Menubar = ({
 
   useEffect(() => {
     fetchCategories();
-  }, [newCategory]);
+  }, [newCategory, statusCount]);
 
   return (
     <div>
