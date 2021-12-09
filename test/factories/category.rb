@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :category do
-    name { Faker::Lorem.character[0..49] }
+    name { Faker::Lorem.characters[0..49] }
   end
 end
