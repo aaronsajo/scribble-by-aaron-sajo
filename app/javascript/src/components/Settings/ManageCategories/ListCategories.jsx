@@ -2,12 +2,13 @@ import React, { useState } from "react";
 
 import { Edit, Delete, Reorder } from "@bigbinary/neeto-icons";
 import { Button } from "@bigbinary/neetoui/v2";
+import { PageLoader } from "@bigbinary/neetoui/v2";
 
 import categoryApi from "apis/categories";
 
 import { EditCategory } from "./EditCategory";
 
-export const ListCategories = ({ category, fetchCategories }) => {
+export const ListCategories = ({ category, fetchCategories, loading }) => {
   const [isEdit, setIsEdit] = useState(false);
   const handleDelete = async id => {
     const value = confirm("Press OK to Delete Category");
@@ -20,6 +21,11 @@ export const ListCategories = ({ category, fetchCategories }) => {
       }
     }
   };
+
+  if (loading) {
+    return <PageLoader className="flex items-center justify-center" />;
+  }
+
   if (isEdit) {
     return (
       <EditCategory

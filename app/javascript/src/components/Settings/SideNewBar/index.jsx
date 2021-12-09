@@ -18,7 +18,7 @@ export const SideNewBar = () => {
     },
     {
       heading: "Manage Categories",
-      subHeading: "Page Title, Brand Name&Meta Description",
+      subHeading: "Edit and Reorder KB Structure",
       tag: Seo,
     },
   ];

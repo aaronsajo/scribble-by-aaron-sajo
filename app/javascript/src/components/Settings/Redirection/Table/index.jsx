@@ -7,7 +7,11 @@ import { AddRedirection } from "./AddRedirection";
 import { Header } from "./Header";
 import { Row } from "./Row";
 
-export const Table = ({ redirectionDetails, fetchRedirectionsDetails }) => {
+export const Table = ({
+  redirectionDetails,
+  fetchRedirectionsDetails,
+  loading,
+}) => {
   const [addRedirection, setAddRedirection] = useState(false);
 
   return (
@@ -26,6 +30,7 @@ export const Table = ({ redirectionDetails, fetchRedirectionsDetails }) => {
               redirection={redirection}
               key={index}
               fetchRedirectionsDetails={fetchRedirectionsDetails}
+              loading={loading}
             />
           ))
         )}

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import { Plus } from "@bigbinary/neeto-icons";
 import { Typography, Button } from "@bigbinary/neetoui/v2";
-import { PageLoader } from "@bigbinary/neetoui/v2";
 import Sortable from "sortablejs";
 
 import categoryApi from "apis/categories";
@@ -54,9 +53,6 @@ export const ManageCategories = () => {
       logger.error(error);
     }
   };
-  if (loading) {
-    return <PageLoader className="flex items-center justify-center mt-64" />;
-  }
 
   return (
     <SettingsContainer>
@@ -88,6 +84,7 @@ export const ManageCategories = () => {
               key={index}
               fetchCategories={fetchCategories}
               id={category.id}
+              loading={loading}
             />
           ))}
         </div>
