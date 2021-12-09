@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import { Typography } from "@bigbinary/neetoui/v2";
-import { PageLoader } from "@bigbinary/neetoui/v2";
 
 import redirectionApi from "apis/redirections";
 
@@ -26,9 +25,6 @@ export const Redirection = () => {
   useEffect(() => {
     fetchRedirectionsDetails();
   }, []);
-  if (loading) {
-    return <PageLoader className="flex items-center justify-center mt-64" />;
-  }
 
   return (
     <SettingsContainer>
@@ -43,6 +39,7 @@ export const Redirection = () => {
           <Table
             redirectionDetails={redirectionDetails}
             fetchRedirectionsDetails={fetchRedirectionsDetails}
+            loading={loading}
           />
         </div>
       </div>

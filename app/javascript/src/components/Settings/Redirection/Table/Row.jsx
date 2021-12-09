@@ -2,12 +2,13 @@ import React, { useState } from "react";
 
 import { Edit, Delete } from "@bigbinary/neeto-icons";
 import { Typography, Button } from "@bigbinary/neetoui/v2";
+import { PageLoader } from "@bigbinary/neetoui/v2";
 
 import redirectionApi from "apis/redirections";
 
 import { EditRedirection } from "./EditRedirection";
 
-export const Row = ({ redirection, fetchRedirectionsDetails }) => {
+export const Row = ({ redirection, fetchRedirectionsDetails, loading }) => {
   const [isEdit, setIsEdit] = useState(false);
   const handleDelete = async id => {
     const value = confirm("Press OK to Delete Redirection");
@@ -20,6 +21,11 @@ export const Row = ({ redirection, fetchRedirectionsDetails }) => {
       }
     }
   };
+
+  if (loading) {
+    return <PageLoader className="flex items-center justify-center " />;
+  }
+
   if (isEdit) {
     return (
       <EditRedirection

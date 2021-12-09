@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import { PageLoader } from "@bigbinary/neetoui/v2";
+
 import redirectionApi from "apis/redirections";
 
 import { RedirectionForm } from "./RedirectionForm";
@@ -10,12 +12,16 @@ export const EditRedirection = ({
   fetchRedirectionsDetails,
 }) => {
   const [redirection, setRedirection] = useState({});
+  const [loading, setLoading] = useState(false);
   const fetchRedirection = async () => {
     try {
+      setLoading(true);
       const response = await redirectionApi.show(id);
       setRedirection(response.data.redirection);
     } catch (error) {
       logger.error(error);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -30,6 +36,10 @@ export const EditRedirection = ({
       logger.error(error);
     }
   };
+  if (loading) {
+    return <PageLoader className="flex items-center justify-center " />;
+  }
+
   return (
     <RedirectionForm
       handleCheck={handleUpdate}
