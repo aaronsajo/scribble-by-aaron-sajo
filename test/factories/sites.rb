@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :site do
-    name { Faker::Lorem.character[0..49] }
+    name { Faker::Lorem.characters[0..49] }
     password { "welcome1" }
   end
 end
