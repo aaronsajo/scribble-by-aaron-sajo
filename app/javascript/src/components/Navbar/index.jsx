@@ -10,7 +10,12 @@ export const Navbar = () => {
     <div className="px-5 border-b-2">
       <Header
         actionBlock={
-          <Button label="Preview" style="secondary" icon={ExternalLink} />
+          <Button
+            label="Preview"
+            style="secondary"
+            icon={ExternalLink}
+            to="/public"
+          />
         }
         title={
           <div className="flex text-xl">

@@ -15,6 +15,7 @@ import { initializeLogger } from "common/logger";
 import { Dashboard } from "./components/Dashboard";
 import { CreateArticle } from "./components/Dashboard/Articles/CreateArticle";
 import { EditArticle } from "./components/Dashboard/Articles/EditArticle";
+import { Eui } from "./components/EUI";
 import { GeneralSettings } from "./components/Settings/General";
 import { ManageCategories } from "./components/Settings/ManageCategories";
 import { Redirection } from "./components/Settings/Redirection";
@@ -52,6 +53,7 @@ const App = () => {
           path="/settings/managecategories"
           component={ManageCategories}
         />
+        <Route path="/public" component={Eui} />
       </Switch>
     </Router>
   );
