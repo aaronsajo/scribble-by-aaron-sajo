@@ -10,7 +10,11 @@ Rails.application.routes.draw do
     resources :articles, except: %i[new edit]
     resource :sites, only: %i[show update]
     resources :redirections, except: %i[new edit]
+    namespace :public do
+      resources :categories, only: :index
+    end
   end
+
   root "home#index"
   get "*path", to: "home#index", via: :all
 end

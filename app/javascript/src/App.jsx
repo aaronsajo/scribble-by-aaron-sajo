@@ -48,6 +48,7 @@ const App = () => {
         </Route>
         <Route exact path="/settings/general" component={GeneralSettings} />
         <Route exact path="/settings/redirection" component={Redirection} />
+
         <Route
           exact
           path="/settings/managecategories"
