@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import { Button, Typography, Input, Checkbox } from "@bigbinary/neetoui/v2";
 import { Toastr } from "@bigbinary/neetoui/v2";
-import { PageLoader } from "@bigbinary/neetoui/v2";
 
 import siteApi from "apis/sites";
 
@@ -10,29 +9,17 @@ import { PasswordComponent } from "./PasswordComponent";
 
 import SettingsContainer from "../SettingsContainer";
 
-export const GeneralSettings = () => {
+export const GeneralSettings = ({ name }) => {
   const [isPassword, setIsPassword] = useState(false);
   const [siteName, setSiteName] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const [passwordValidation, setPasswordValidation] = useState({
     minChar: false,
     letterAndNumber: false,
   });
   const [errors, setErrors] = useState("");
-  const fetchSiteDetails = async () => {
-    try {
-      setLoading(true);
-      const response = await siteApi.show();
-      setSiteName(response.data.name);
-    } catch (error) {
-      logger.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
   useEffect(() => {
-    fetchSiteDetails();
+    setSiteName(name);
   }, []);
   const handlePassword = e => {
     const passWord = e.target.value;
@@ -44,8 +31,6 @@ export const GeneralSettings = () => {
     setPasswordValidation({ minChar, letterAndNumber });
   };
   const handleSubmit = async e => {
-    e.preventDefault();
-
     if (siteName.trim().length <= 0) {
       setErrors("Required");
     } else {
@@ -62,6 +47,7 @@ export const GeneralSettings = () => {
               },
             });
           } else {
+            e.preventDefault();
             Toastr.error("Check the password requirement.");
           }
         } else {
@@ -77,10 +63,6 @@ export const GeneralSettings = () => {
       }
     }
   };
-
-  if (loading) {
-    return <PageLoader className="flex items-center justify-center mt-64" />;
-  }
 
   return (
     <SettingsContainer>

@@ -12,7 +12,7 @@ const setAuthHeaders = (setLoading = () => null) => {
       .querySelector('[name="csrf-token"]')
       .getAttribute("content"),
   };
-  const token = localStorage.getItem("authToken");
+  const token = sessionStorage.getItem("authToken");
   if (token) {
     axios.defaults.headers["X-Auth-Token"] = token;
   }

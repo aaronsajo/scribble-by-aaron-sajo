@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Typography } from "@bigbinary/neetoui/v2";
 import { useParams } from "react-router";
 
-import EuiContainer from "./EuiContainer";
+import EuiContainer from "../EuiContainer";
 
-export const ShowArticle = ({ data }) => {
+export const ShowArticle = ({ data, siteName }) => {
   const { slug } = useParams();
 
   const [article, setArticle] = useState({});
@@ -18,7 +18,7 @@ export const ShowArticle = ({ data }) => {
   }, []);
 
   return (
-    <EuiContainer data={data}>
+    <EuiContainer data={data} siteName={siteName}>
       <div className="mx-8 mt-8">
         <div className="text-4xl text-gray-800 font-bold">{article.title}</div>
         <div className="flex mt-8">

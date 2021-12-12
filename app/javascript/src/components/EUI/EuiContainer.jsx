@@ -5,10 +5,10 @@ import PropTypes from "prop-types";
 import { EuiSideBar } from "./EuiSideBar/EuiSideBar";
 import { EuiNavbar } from "./Navbar/EuiNavbar";
 
-const EuiContainer = ({ children, data }) => {
+const EuiContainer = ({ children, data, siteName }) => {
   return (
     <main className="flex flex-col h-screen">
-      <EuiNavbar className="overflow-y-hidden" />
+      <EuiNavbar siteName={siteName} className="overflow-y-hidden" />
       <div className="flex  h-full">
         <EuiSideBar data={data} />
         {children}
