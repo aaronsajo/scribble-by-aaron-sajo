@@ -4,28 +4,36 @@ import { PageLoader } from "@bigbinary/neetoui/v2";
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import publicApi from "apis/public";
+import redirectionApi from "apis/redirections";
 
-import { NoArticlePage } from "./NoArticlePage";
+import { NoArticlePage } from "./NoArticle/NoArticlePage";
 import { ShowArticle } from "./ShowArticle/ShowArticle";
 
 export const Eui = ({ siteName }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [redirections, setRedirections] = useState([]);
 
-  const fetchCategoryDetails = async () => {
-    setLoading(true);
-    const response = await publicApi.list();
-    const filteredCategories = response.data.categories.filter(
-      category => category.count > 0
-    );
-    setData(filteredCategories);
+  const fetchCategoryAndRedirectionDetails = async () => {
+    try {
+      setLoading(true);
+      const categoryResponse = await publicApi.list();
+      const filteredCategories = categoryResponse.data.categories.filter(
+        category => category.count > 0
+      );
+      setData(filteredCategories);
+      const redirectionResponse = await redirectionApi.list();
+      setRedirections(redirectionResponse.data.redirection);
+    } catch (error) {
+      logger.error(error);
+    }
+
     setLoading(false);
   };
-
   useEffect(() => {
-    fetchCategoryDetails();
+    fetchCategoryAndRedirectionDetails();
   }, []);
-  if (loading) {
+  if (loading || redirections.length === 0) {
     return <PageLoader className=" flex justify-center  mt-64" />;
   }
 
@@ -33,6 +41,16 @@ export const Eui = ({ siteName }) => {
 
   return (
     <Switch>
+      {redirections.map((redirection, index) => {
+        return (
+          <Redirect
+            key={index}
+            exact
+            from={"/public/" + redirection.from}
+            to={"/public/" + redirection.to}
+          />
+        );
+      })}
       <Route
         exact
         path="/public/:slug/show"

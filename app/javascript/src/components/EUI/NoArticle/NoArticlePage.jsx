@@ -1,6 +1,6 @@
 import React from "react";
 
-import { EuiNavbar } from "./Navbar/EuiNavbar";
+import { EuiNavbar } from "../Navbar/EuiNavbar";
 
 export const NoArticlePage = ({ siteName }) => {
   return (

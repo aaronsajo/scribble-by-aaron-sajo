@@ -5,8 +5,8 @@ import { Typography, Input, Button } from "@bigbinary/neetoui/v2";
 import authApi from "apis/auth";
 import { setAuthHeaders } from "apis/axios";
 
-import Vector from "./Images/Vector.png";
-import { EuiNavbar } from "./Navbar/EuiNavbar";
+import Vector from "../Images/Vector.png";
+import { EuiNavbar } from "../Navbar/EuiNavbar";
 
 export const Login = ({ siteName }) => {
   const [password, setPassword] = useState("");

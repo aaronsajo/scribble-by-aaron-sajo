@@ -19,7 +19,7 @@ import { Dashboard } from "./components/Dashboard";
 import { CreateArticle } from "./components/Dashboard/Articles/CreateArticle";
 import { EditArticle } from "./components/Dashboard/Articles/EditArticle";
 import { Eui } from "./components/EUI";
-import { Login } from "./components/EUI/Login";
+import { Login } from "./components/EUI/Login/Login";
 import { GeneralSettings } from "./components/Settings/General";
 import { ManageCategories } from "./components/Settings/ManageCategories";
 import { Redirection } from "./components/Settings/Redirection";
