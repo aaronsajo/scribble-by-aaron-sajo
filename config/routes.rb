@@ -8,9 +8,14 @@ Rails.application.routes.draw do
       end
     end
     resources :articles, except: %i[new edit]
-    resource :sites, only: %i[show update]
+    resource :site, only: %i[show update]
     resources :redirections, except: %i[new edit]
+    resource :session, only: :create
+    namespace :public do
+      resources :categories, only: :index
+    end
   end
+
   root "home#index"
   get "*path", to: "home#index", via: :all
 end
