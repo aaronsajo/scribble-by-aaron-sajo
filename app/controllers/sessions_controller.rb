@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   def create
     @site = Site.first
     unless @site.authenticate(login_params[:password])
-      render status: :unauthorized, json: { error: "Incorrect credentials, try again." }
+      render status: :unauthorized, json: { error: t("incorrect_credentials") }
     end
   end
 
