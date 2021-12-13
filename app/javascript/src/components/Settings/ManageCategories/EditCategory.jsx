@@ -37,10 +37,15 @@ export const EditCategory = ({ id, setIsEdit, fetchCategories }) => {
   }
 
   return (
-    <CategoryForm
-      category={category}
-      setCategory={setCategory}
-      handleCheck={handleUpdate}
-    />
+    <div className="flex" id={id}>
+      <div className="mt-6 ml-4 ">
+        <i className="ri-drag-move-2-line handle text-gray-600 "></i>
+      </div>
+      <CategoryForm
+        category={category}
+        setCategory={setCategory}
+        handleCheck={handleUpdate}
+      />
+    </div>
   );
 };

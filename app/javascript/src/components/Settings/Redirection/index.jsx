@@ -35,7 +35,7 @@ export const Redirection = () => {
           new links. All redirections are performed with 301 status codes to be
           SEO friendly.
         </Typography>
-        <div className="bg-indigo-100 py-4">
+        <div className="bg-bb-indigo-50 py-4">
           <Table
             redirectionDetails={redirectionDetails}
             fetchRedirectionsDetails={fetchRedirectionsDetails}

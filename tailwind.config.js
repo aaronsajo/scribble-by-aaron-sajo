@@ -7,6 +7,9 @@ module.exports = {
   purge: [],
   theme: {
     extend: {
+      colors:{
+      'bb-indigo-50': '#EEF2FF'
+      },
       width:{
         '400':'400px',
         '720':'720px',

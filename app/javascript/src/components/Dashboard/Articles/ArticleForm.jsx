@@ -110,13 +110,13 @@ export const ArticleForm = ({
         />
         <div className="flex mt-4">
           <Button
-            className="bg-indigo-500"
+            className="bg-indigo-500 rounded-l-md rounded-r-none"
             label={showStatus(0)}
             type="submit"
           />
           <Dropdown
             buttonProps={{
-              className: "bg-indigo-500",
+              className: "bg-indigo-500 rounded-r-md rounded-l-none",
             }}
             autoWidth="false"
           >

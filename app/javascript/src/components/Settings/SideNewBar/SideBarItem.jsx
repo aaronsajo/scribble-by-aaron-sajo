@@ -9,7 +9,7 @@ export const SideBarItem = ({ item }) => {
     <div>
       <NavLink
         to={`${heading}`}
-        activeClassName="bg-gray-300 rounded-sm "
+        activeClassName="bg-bb-indigo-50 rounded-sm "
         className=" py-4 pl-2 flex  "
       >
         <item.tag size={28} />
