@@ -9,7 +9,7 @@ import { CategoryForm } from "./CategoryForm";
 export const EditCategory = ({ id, setIsEdit, fetchCategories }) => {
   const [category, setCategory] = useState({});
   const [loading, setLoading] = useState(false);
-  const fetchRedirection = async () => {
+  const fetchCategory = async () => {
     try {
       setLoading(true);
       const response = await categoryApi.show(id);
@@ -21,7 +21,7 @@ export const EditCategory = ({ id, setIsEdit, fetchCategories }) => {
     }
   };
   useEffect(() => {
-    fetchRedirection();
+    fetchCategory();
   }, []);
   const handleUpdate = async () => {
     try {

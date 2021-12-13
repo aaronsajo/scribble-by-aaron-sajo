@@ -10,11 +10,10 @@ export const CreateArticle = () => {
   const [article, setArticle] = useState({
     title: "",
     body: "",
-    category_id: null,
+    category_id: "",
     status: "Draft",
   });
-  const [selectedCategory, setSelectedCategory] = useState();
-  const handleSubmit = async () => {
+  const handleSubmit = async article => {
     try {
       await articleApi.create({ article });
       window.location.href = "/";
@@ -27,8 +26,6 @@ export const CreateArticle = () => {
       <ArticleForm
         articleDetails={article}
         setArticleDetails={setArticle}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
         handleSubmit={handleSubmit}
       />
     </Container>
