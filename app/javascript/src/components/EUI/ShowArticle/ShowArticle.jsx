@@ -19,7 +19,7 @@ export const ShowArticle = ({ data, siteName }) => {
 
   return (
     <EuiContainer data={data} siteName={siteName}>
-      <div className="mx-8 mt-8">
+      <div className="m-8 overflow-scroll">
         <div className="text-4xl text-gray-800 font-bold">{article.title}</div>
         <div className="flex mt-8">
           <Typography style="body3" className="text-blue-800 bg-blue-100 p-1">
