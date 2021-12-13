@@ -9,9 +9,9 @@ export const ListArticle = ({ setStatusCount, articleFilterConstraint }) => {
   const [searchString, setSearchString] = useState("");
   const [displayColumns, setDisplayColumns] = useState([
     "title",
-    "category",
     "date",
     "author",
+    "category",
     "status",
   ]);
   return (
