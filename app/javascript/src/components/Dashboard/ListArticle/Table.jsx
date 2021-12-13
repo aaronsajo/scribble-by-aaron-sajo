@@ -106,7 +106,9 @@ export const ArticleTable = ({
   return (
     <div className="h-full ">
       <Typography style="h3" className="ml-4 py-3">
-        {rowData.length} Articles
+        {rowData.length > 1
+          ? rowData.length + " Articles"
+          : rowData.length + " Article"}
       </Typography>
       <Table
         className="even:bg-gray-100 text-indigo-500"

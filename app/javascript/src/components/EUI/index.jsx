@@ -33,7 +33,7 @@ export const Eui = ({ siteName }) => {
   useEffect(() => {
     fetchCategoryAndRedirectionDetails();
   }, []);
-  if (loading || redirections.length === 0) {
+  if (loading) {
     return <PageLoader className=" flex justify-center  mt-64" />;
   }
 
@@ -46,8 +46,8 @@ export const Eui = ({ siteName }) => {
           <Redirect
             key={index}
             exact
-            from={"/public/" + redirection.from}
-            to={"/public/" + redirection.to}
+            from={"/" + redirection.from}
+            to={"/" + redirection.to}
           />
         );
       })}

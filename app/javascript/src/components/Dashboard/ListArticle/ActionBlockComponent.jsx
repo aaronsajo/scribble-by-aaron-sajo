@@ -33,7 +33,6 @@ export const ActionBlockComponent = ({ setDisplayColumns }) => {
         closeOnSelect={false}
         className="px-4"
       >
-        {" "}
         {Object.keys(checkedValue).map((value, i) => (
           <li key={i}>
             <Checkbox
