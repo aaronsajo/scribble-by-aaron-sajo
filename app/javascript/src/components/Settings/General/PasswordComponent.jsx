@@ -7,6 +7,8 @@ export const PasswordComponent = ({
   password,
   handlePassword,
   passwordValidation,
+  setFieldValue,
+  errors,
 }) => {
   return (
     <div>
@@ -14,7 +16,11 @@ export const PasswordComponent = ({
         label="Password"
         className="mt-5"
         value={password}
-        onChange={handlePassword}
+        error={errors.password}
+        onChange={e => {
+          handlePassword(e);
+          setFieldValue("password", e.target.value);
+        }}
         type="password"
       />
       <Typography style="body3" className="py-3 flex">

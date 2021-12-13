@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Dropdown } from "@bigbinary/neetoui/v2";
 import { Input, Select, Textarea } from "@bigbinary/neetoui/v2/formik";
 import { Formik, Form } from "formik";
-import { isEmpty } from "ramda";
+import * as yup from "yup";
 
 import categoryApi from "apis/categories";
 
@@ -23,6 +23,11 @@ export const ArticleForm = ({ articleDetails, handleSubmit }) => {
       logger.error(error);
     }
   };
+  const schema = yup.object().shape({
+    title: yup.string().required("Title can't be blank."),
+    body: yup.string().required("Body can't be blank."),
+    category_id: yup.string().required("Category can't be blank."),
+  });
 
   useEffect(() => {
     fetchCategoryList();
@@ -32,22 +37,7 @@ export const ArticleForm = ({ articleDetails, handleSubmit }) => {
       initialValues={articleDetails}
       validateOnBlur={false}
       validateOnChange={false}
-      validate={values => {
-        const errors = {};
-        if (isEmpty(values.title)) {
-          errors.title = "Title can't be blank";
-        }
-
-        if (isEmpty(values.category_id)) {
-          errors.category_id = "Category can't be blank";
-        }
-
-        if (isEmpty(values.body)) {
-          errors.body = "Body can't be blank";
-        }
-
-        return errors;
-      }}
+      validationSchema={schema}
       onSubmit={values => {
         handleSubmit(values);
       }}
