@@ -39,19 +39,19 @@ export const Row = ({ redirection, fetchRedirectionsDetails, loading }) => {
   return (
     <tr className="bg-white border-b-8 border-indigo-100">
       <td
-        className="text-left flex p-3 overflow-x-auto mr-3"
+        className="text-left flex p-3 overflow-x-auto mr-3 whitespace-no-wrap"
         style={{ maxWidth: "300px", minWidth: "300px" }}
       >
         <Typography style="body2" className="text-gray-500">
-          {window.location.origin}
+          {window.location.origin}/public
         </Typography>
-        <Typography style="body2"> /{redirection.from}</Typography>
+        <Typography style="body2"> /{redirection.from}/show</Typography>
       </td>
       <td
         className=" overflow-x-auto"
         style={{ maxWidth: "280px", minWidth: "280px" }}
       >
-        {window.location.origin}/{redirection.to}
+        {window.location.origin}/public/{redirection.to}/show
       </td>
       <td className="pr-2">
         <Button

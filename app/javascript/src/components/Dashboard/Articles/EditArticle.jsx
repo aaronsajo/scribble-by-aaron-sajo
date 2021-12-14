@@ -12,17 +12,13 @@ import Container from "../../Container";
 export const EditArticle = () => {
   const { id } = useParams();
   const [article, setArticle] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const fetchArticleDetails = async () => {
     try {
       setLoading(true);
       const response = await articleApi.show(id);
       setArticle(response.data.article);
-      setSelectedCategory({
-        label: response.data.category_name,
-        value: response.data.article.category_id,
-      });
     } catch (error) {
       logger.error(error);
     } finally {
@@ -32,14 +28,16 @@ export const EditArticle = () => {
   useEffect(() => {
     fetchArticleDetails();
   }, []);
-  const handleSubmit = async () => {
+
+  const handleSubmit = async data => {
     try {
-      await articleApi.update({ id, payload: article });
+      await articleApi.update({ id, payload: { article: data } });
       window.location.href = "/";
     } catch (error) {
       logger.error(error);
     }
   };
+
   if (loading) {
     return (
       <Container>
@@ -55,8 +53,6 @@ export const EditArticle = () => {
       <ArticleForm
         articleDetails={article}
         setArticleDetails={setArticle}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
         handleSubmit={handleSubmit}
       />
     </Container>

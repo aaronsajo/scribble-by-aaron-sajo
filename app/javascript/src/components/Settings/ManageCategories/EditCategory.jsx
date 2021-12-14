@@ -9,7 +9,7 @@ import { CategoryForm } from "./CategoryForm";
 export const EditCategory = ({ id, setIsEdit, fetchCategories }) => {
   const [category, setCategory] = useState({});
   const [loading, setLoading] = useState(false);
-  const fetchRedirection = async () => {
+  const fetchCategory = async () => {
     try {
       setLoading(true);
       const response = await categoryApi.show(id);
@@ -21,7 +21,7 @@ export const EditCategory = ({ id, setIsEdit, fetchCategories }) => {
     }
   };
   useEffect(() => {
-    fetchRedirection();
+    fetchCategory();
   }, []);
   const handleUpdate = async () => {
     try {
@@ -37,10 +37,15 @@ export const EditCategory = ({ id, setIsEdit, fetchCategories }) => {
   }
 
   return (
-    <CategoryForm
-      category={category}
-      setCategory={setCategory}
-      handleCheck={handleUpdate}
-    />
+    <div className="flex" id={id}>
+      <div className="mt-6 ml-4 ">
+        <i className="ri-drag-move-2-line handle text-gray-600 "></i>
+      </div>
+      <CategoryForm
+        category={category}
+        setCategory={setCategory}
+        handleCheck={handleUpdate}
+      />
+    </div>
   );
 };

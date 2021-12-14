@@ -6,9 +6,9 @@ import { Dropdown, Button, Checkbox } from "@bigbinary/neetoui/v2";
 export const ActionBlockComponent = ({ setDisplayColumns }) => {
   const [checkedValue, setCheckedValue] = useState({
     title: true,
-    category: true,
     date: true,
     author: true,
+    category: true,
     status: true,
   });
   const handleChange = e => {
@@ -33,7 +33,6 @@ export const ActionBlockComponent = ({ setDisplayColumns }) => {
         closeOnSelect={false}
         className="px-4"
       >
-        {" "}
         {Object.keys(checkedValue).map((value, i) => (
           <li key={i}>
             <Checkbox

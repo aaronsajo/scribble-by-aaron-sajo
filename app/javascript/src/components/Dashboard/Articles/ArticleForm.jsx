@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from "react";
 
-import {
-  Button,
-  Input,
-  Select,
-  Textarea,
-  Dropdown,
-} from "@bigbinary/neetoui/v2";
+import { Button, Dropdown } from "@bigbinary/neetoui/v2";
+import { Input, Select, Textarea } from "@bigbinary/neetoui/v2/formik";
+import { Formik, Form } from "formik";
+import * as yup from "yup";
 
 import categoryApi from "apis/categories";
 
-export const ArticleForm = ({
-  articleDetails,
-  setArticleDetails,
-  selectedCategory,
-  setSelectedCategory,
-  handleSubmit,
-}) => {
+export const ArticleForm = ({ articleDetails, handleSubmit }) => {
   const [categoryList, setCategoryList] = useState([]);
-  const [errors, setErrors] = useState({ input: "", select: "", textarea: "" });
+
+  const showStatus = () => {
+    return articleDetails.status === "Published" ? "Publish" : "Save Draft";
+  };
+  const [buttonLabel, setButtonLabel] = useState(() => showStatus());
+
   const fetchCategoryList = async () => {
     try {
       const response = await categoryApi.list();
@@ -27,114 +23,92 @@ export const ArticleForm = ({
       logger.error(error);
     }
   };
-  const showStatus = num => {
-    if (num) {
-      return articleDetails.status === "Published" ? "Save Draft" : "Publish";
-    }
+  const schema = yup.object().shape({
+    title: yup.string().required("Title can't be blank."),
+    body: yup.string().required("Body can't be blank."),
+    category_id: yup.string().required("Category can't be blank."),
+  });
 
-    return articleDetails.status === "Published" ? "Publish" : "Save Draft";
-  };
-  const handleStatus = () => {
-    return articleDetails.status === "Published" ? "Draft" : "Published";
-  };
-  const handleChange = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setArticleDetails({ ...articleDetails, [name]: value });
-  };
-  const handleCategories = e => {
-    setSelectedCategory(e);
-    setArticleDetails({ ...articleDetails, category_id: e.value });
-  };
-  const handleErrors = e => {
-    e.preventDefault();
-    setErrors({ input: "", select: "", textarea: "" });
-    let flag = false;
-    if (articleDetails.title.trim().length === 0) {
-      setErrors(error => ({ ...error, input: "Title Can't be blank." }));
-      flag = true;
-    }
-
-    if (articleDetails.body.trim().length === 0) {
-      setErrors(error => ({ ...error, textarea: "Body Can't be blank." }));
-      flag = true;
-    }
-
-    if (articleDetails.category_id === null) {
-      setErrors(error => ({ ...error, select: "Select a category" }));
-      flag = true;
-    }
-
-    if (!flag) {
-      handleSubmit();
-    }
-  };
   useEffect(() => {
     fetchCategoryList();
   }, []);
   return (
-    <div>
-      <form className="w-5/12 mx-auto mt-8" onSubmit={handleErrors}>
-        <div className="flex my-4 ">
-          <Input
-            label="Article Title"
-            className="mr-3"
-            value={articleDetails.title}
-            name="title"
-            onChange={handleChange}
-            error={errors.input}
-          />
-          <Select
-            isSearchable
-            label="Category"
-            name="ValueList"
-            size="small"
-            value={selectedCategory}
-            options={categoryList.map(category => ({
-              label: category.name,
-              value: category.id,
-            }))}
-            onChange={handleCategories}
-            placeholder="Select a category"
-            error={errors.select}
-          />
-        </div>
-        <Textarea
-          rows="30"
-          label="Article Body"
-          placeholder="Enter text"
-          value={articleDetails.body}
-          name="body"
-          onChange={handleChange}
-          error={errors.textarea}
-        />
-        <div className="flex mt-4">
-          <Button
-            className="bg-indigo-500"
-            label={showStatus(0)}
-            type="submit"
-          />
-          <Dropdown
-            buttonProps={{
-              className: "bg-indigo-500",
-            }}
-            autoWidth="false"
-          >
-            <li
-              onClick={() => {
-                setArticleDetails({
-                  ...articleDetails,
-                  status: handleStatus(),
-                });
+    <Formik
+      initialValues={articleDetails}
+      validateOnBlur={false}
+      validateOnChange={false}
+      validationSchema={schema}
+      onSubmit={values => {
+        handleSubmit(values);
+      }}
+    >
+      {({ values, errors, setFieldValue }) => (
+        <Form className="w-5/12 mx-auto mt-8">
+          <div className="flex my-4 ">
+            <Input
+              label="Article Title"
+              className="mr-3"
+              value={values.title}
+              name="title"
+              error={errors.title}
+              placeholder="Enter Title"
+            />
+            <Select
+              isSearchable
+              label="Category"
+              name="ValueList"
+              size="small"
+              value={{ label: values.category_name, value: values.category_id }}
+              options={categoryList.map(category => ({
+                label: category.name,
+                value: category.id,
+              }))}
+              onChange={e => {
+                setFieldValue("category_name", e.label);
+                setFieldValue("category_id", e.value);
               }}
-              className="bg-indigo-500 text-gray-100"
+              placeholder="Select a category"
+              error={errors.category_id}
+            />
+          </div>
+          <Textarea
+            rows="30"
+            label="Article Body"
+            placeholder="Enter text"
+            value={values.body}
+            name="body"
+            error={errors.body}
+          />
+          <div className="flex mt-4">
+            <Button
+              className="bg-indigo-500 rounded-l-md rounded-r-none"
+              label={buttonLabel}
+              type="submit"
+            />
+            <Dropdown
+              buttonProps={{
+                className: "bg-indigo-500 rounded-r-md rounded-l-none",
+              }}
+              autoWidth="false"
             >
-              {showStatus(1)}
-            </li>
-          </Dropdown>
-          <Button label="Cancel" className="ml-4" to="/" style="text" />
-        </div>
-      </form>
-    </div>
+              <ul
+                onClick={e => {
+                  setButtonLabel(e.target.firstChild.nodeValue);
+                  setFieldValue("status", e.target.getAttribute("value"));
+                }}
+              >
+                <li className="bg-indigo-500 text-gray-100" value="Draft">
+                  Save Draft
+                </li>
+                <li className="bg-indigo-500 text-gray-100" value="Published">
+                  Publish
+                </li>
+              </ul>
+            </Dropdown>
+            <Button label="Cancel" className="ml-4" to="/" style="text" />
+          </div>
+        </Form>
+      )}
+    </Formik>
   );
 };

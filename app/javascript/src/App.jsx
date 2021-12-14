@@ -72,12 +72,7 @@ const App = () => {
         <Route
           exact
           path="/settings/general"
-          component={() => (
-            <GeneralSettings
-              name={siteName}
-              fetchSiteDetails={fetchSiteDetails}
-            />
-          )}
+          component={() => <GeneralSettings name={siteName} />}
         />
         <Route exact path="/settings/redirection" component={Redirection} />
 

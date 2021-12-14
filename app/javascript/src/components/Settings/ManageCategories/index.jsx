@@ -56,7 +56,7 @@ export const ManageCategories = () => {
 
   return (
     <SettingsContainer>
-      <div className="w-720  mx-auto mt-10">
+      <div className="w-720  mx-auto mt-10 ">
         <Typography style="h3">Manage categories</Typography>
         <Typography style="body1" className="text-gray-600 mb-4">
           Create and configure the categories inside your scribble.
@@ -77,7 +77,7 @@ export const ManageCategories = () => {
             fetchCategories={fetchCategories}
           />
         )}
-        <div id="category-list">
+        <div id="category-list" className="overflow-y-scroll h-420">
           {categoriesList.map((category, index) => (
             <ListCategories
               category={category}

@@ -17,10 +17,10 @@ class ArticleTest < ActiveSupport::TestCase
     assert_includes @article.errors.full_messages, "Title can't be blank"
   end
 
-  def test_article_should_be_invalid_without_title
-    @article.title = nil
+  def test_article_should_be_invalid_without_status
+    @article.status = nil
     assert @article.invalid?
-    assert_includes @article.errors.full_messages, "Title can't be blank"
+    assert_includes @article.errors.full_messages, "Status can't be blank"
   end
 
   def test_article_should_be_invalid_without_body

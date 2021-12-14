@@ -21,4 +21,22 @@ class SiteTest < ActiveSupport::TestCase
     @site.password = nil
     assert @site.valid?
   end
+
+  def test_site_should_be_invalid_small_password
+    @site.password = "pass1"
+    assert @site.invalid?
+    assert_includes @site.errors.full_messages, "Password is too short (minimum is 6 characters)"
+  end
+
+  def test_site_should_be_invalid_without_number_in_password
+    @site.password = "password"
+    assert @site.invalid?
+    assert_includes @site.errors.full_messages, "Password Require 1 letter and number"
+  end
+
+  def test_site_should_be_invalid_without_letter_in_password
+    @site.password = "1234567"
+    assert @site.invalid?
+    assert_includes @site.errors.full_messages, "Password Require 1 letter and number"
+  end
 end

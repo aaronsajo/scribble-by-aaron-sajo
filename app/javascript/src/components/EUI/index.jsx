@@ -33,7 +33,7 @@ export const Eui = ({ siteName }) => {
   useEffect(() => {
     fetchCategoryAndRedirectionDetails();
   }, []);
-  if (loading || redirections.length === 0) {
+  if (loading) {
     return <PageLoader className=" flex justify-center  mt-64" />;
   }
 
@@ -43,12 +43,14 @@ export const Eui = ({ siteName }) => {
     <Switch>
       {redirections.map((redirection, index) => {
         return (
-          <Redirect
+          <Route
             key={index}
             exact
-            from={"/public/" + redirection.from}
-            to={"/public/" + redirection.to}
-          />
+            path={"/public/" + redirection.from + "/show"}
+          >
+            <Redirect to={"/public/" + redirection.to + "/show"} />
+            status = {301}
+          </Route>
         );
       })}
       <Route
