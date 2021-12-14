@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import { Typography } from "@bigbinary/neetoui/v2";
+import { Typography, Button } from "@bigbinary/neetoui/v2";
 import { useParams } from "react-router";
 
 import EuiContainer from "../EuiContainer";
+import { EuiNavbar } from "../Navbar/EuiNavbar";
 
 export const ShowArticle = ({ data, siteName }) => {
   const { slug } = useParams();
@@ -16,6 +17,17 @@ export const ShowArticle = ({ data, siteName }) => {
       .filter(article => article.slug === slug)[0];
     setArticle(flatenedData);
   }, []);
+  if (!article) {
+    return (
+      <div>
+        <EuiNavbar siteName={siteName} />
+        <div className="flex flex-col mx-auto justify-center items-center mt-20 space-y-4">
+          <Typography style="h1">Invalid Article</Typography>
+          <Button label="Click here to go Home" to="/public" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <EuiContainer data={data} siteName={siteName}>
