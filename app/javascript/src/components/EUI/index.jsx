@@ -43,12 +43,14 @@ export const Eui = ({ siteName }) => {
     <Switch>
       {redirections.map((redirection, index) => {
         return (
-          <Redirect
+          <Route
             key={index}
             exact
-            from={"/" + redirection.from}
-            to={"/" + redirection.to}
-          />
+            path={"/public/" + redirection.from + "/show"}
+          >
+            <Redirect to={"/public/" + redirection.to + "/show"} />
+            status = {301}
+          </Route>
         );
       })}
       <Route

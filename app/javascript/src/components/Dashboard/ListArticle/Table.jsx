@@ -49,6 +49,7 @@ export const ArticleTable = ({
       key: coloumn,
       title: coloumn,
       className: coloumn !== "title" ? "text-gray-600" : null,
+      width: coloumn === "category" || coloumn === "date" ? 150 : null,
     }));
     dummyColumnData.push({
       render: (_, rowData) => (

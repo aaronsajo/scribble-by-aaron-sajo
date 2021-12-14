@@ -116,21 +116,23 @@ export const Menubar = ({
             suffix={<Button style="text" icon={Check} onClick={handleCreate} />}
           />
         )}
-        {categoryData
-          .filter(unfilterdCategoryData =>
-            unfilterdCategoryData.name
-              .toLowerCase()
-              .includes(searchCategory.toLocaleLowerCase())
-          )
-          .map(category => (
-            <MenuBar.Block
-              label={category.name}
-              count={category.count}
-              key={category.id}
-              onClick={() => handleCategories(category.name)}
-              active={articleFilterConstraint.category === category.name}
-            />
-          ))}
+        <div className="overflow-y-scroll h-420">
+          {categoryData
+            .filter(unfilterdCategoryData =>
+              unfilterdCategoryData.name
+                .toLowerCase()
+                .includes(searchCategory.toLocaleLowerCase())
+            )
+            .map(category => (
+              <MenuBar.Block
+                label={category.name}
+                count={category.count}
+                key={category.id}
+                onClick={() => handleCategories(category.name)}
+                active={articleFilterConstraint.category === category.name}
+              />
+            ))}
+        </div>
       </MenuBar>
     </div>
   );

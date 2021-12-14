@@ -30,7 +30,7 @@ export const Redirection = () => {
     <SettingsContainer>
       <div className="w-720  mx-auto mt-10">
         <Typography style="h2">Redirection</Typography>
-        <Typography style="body1" className="text-gray-600">
+        <Typography style="body1" className="text-gray-600 my-4">
           Create and configure redirection rules to send users from old links to
           new links. All redirections are performed with 301 status codes to be
           SEO friendly.
